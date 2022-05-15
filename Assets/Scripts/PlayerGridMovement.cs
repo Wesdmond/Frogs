@@ -5,81 +5,132 @@ using UnityEngine;
 public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField]
+    private int _maxShootingDuration = 6;
+    [SerializeField]
     private float _moveSpeed = 5f;
     [SerializeField]
     private Transform _movePoint;
     [SerializeField]
-    private LayerMask _whatStopsMovement;
-    [SerializeField]
     private PlayerInput _playerInput;
     [SerializeField]
-    private LayerMask whatStopsMovement;
+    private LayerMask _whatStopsMovement;
 
-    private Animator animator;
-    private string activeDirection = "Down";
-
+    private Animator _animator;
+    private string _activeDirection = "Down";
 
     void Start()
     {
         _movePoint.parent = null;
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, _movePoint.position) == 0f)
+        // Moving mode
+        if (!_playerInput.GetShootingMode())
         {
-            animator.SetBool("Jumping", false);
+            _animator.SetBool("Shooting", false);
+            transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
 
+            if (Vector3.Distance(transform.position, _movePoint.position) == 0f)
+            {
+                _animator.SetBool("Jumping", false);
+
+                float _x = _playerInput.GetMovement().x;
+                float _y = _playerInput.GetMovement().y;
+
+                if (Mathf.Abs(_x) == 1)
+                {
+                    // There need to play sound
+                    _animator.SetBool("Jumping", true);
+                    if (_x > 0)
+                    {
+                        _animator.SetBool(_activeDirection, false);
+                        _activeDirection = "Right";
+                        _animator.SetBool(_activeDirection, true);
+                    }
+                    else
+                    {
+                        _animator.SetBool(_activeDirection, false);
+                        _activeDirection = "Left";
+                        _animator.SetBool(_activeDirection, true);
+                    }
+
+                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x, 0, 0), .2f, _whatStopsMovement))
+                    {
+                        _movePoint.position = transform.position + new Vector3(_x, 0, 0);
+                    }
+                }
+                else if (Mathf.Abs(_y) == 1)
+                {
+                    // There need to play sound
+                    _animator.SetBool("Jumping", true);
+                    if (_y > 0)
+                    {
+                        _animator.SetBool(_activeDirection, false);
+                        _activeDirection = "Up";
+                        _animator.SetBool(_activeDirection, true);
+                    }
+                    else
+                    {
+                        _animator.SetBool(_activeDirection, false);
+                        _activeDirection = "Down";
+                        _animator.SetBool(_activeDirection, true);
+                    }
+
+                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y, 0), .2f, _whatStopsMovement))
+                    {
+                        _movePoint.position = transform.position + new Vector3(0, _y, 0);
+                    }
+                }
+            }
+        }
+
+        // Shooting mode
+        else
+        {
+            _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
 
             if (Mathf.Abs(_x) == 1)
             {
-                // There need to play sound
-                animator.SetBool("Jumping", true);
+                // There need to play shooting sound
+
+
                 if (_x > 0)
                 {
-                    animator.SetBool(activeDirection, false);
-                    activeDirection = "Right";
-                    animator.SetBool(activeDirection, true);
+                    _animator.SetBool(_activeDirection, false);
+                    _activeDirection = "Right";
+                    _animator.SetBool(_activeDirection, true);
                 }
                 else
                 {
-                    animator.SetBool(activeDirection, false);
-                    activeDirection = "Left";
-                    animator.SetBool(activeDirection, true);
-                }
-
-                if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x, 0, 0), .2f, whatStopsMovement))
-                {
-                    _movePoint.position = transform.position + new Vector3(_x, 0, 0);
+                    _animator.SetBool(_activeDirection, false);
+                    _activeDirection = "Left";
+                    _animator.SetBool(_activeDirection, true);
                 }
             }
+
             else if (Mathf.Abs(_y) == 1)
             {
-                // There need to play sound
-                animator.SetBool("Jumping", true);
+                // There need to play shooting sound
+
+
                 if (_y > 0)
                 {
-                    animator.SetBool(activeDirection, false);
-                    activeDirection = "Up";
-                    animator.SetBool(activeDirection, true);
+                    _animator.SetBool(_activeDirection, false);
+                    _activeDirection = "Up";
+                    _animator.SetBool(_activeDirection, true);
                 }
                 else
                 {
-                    animator.SetBool(activeDirection, false);
-                    activeDirection = "Down";
-                    animator.SetBool(activeDirection, true);
-                }
-
-                if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y, 0), .2f, whatStopsMovement))
-                {
-                    _movePoint.position = transform.position + new Vector3(0, _y, 0);
+                    _animator.SetBool(_activeDirection, false);
+                    _activeDirection = "Down";
+                    _animator.SetBool(_activeDirection, true);
                 }
             }
+
         }
     }
 }
