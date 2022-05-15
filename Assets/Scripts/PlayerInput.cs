@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour
             //_y = Normale(_y);
             
             movement = new Vector2(_x, _y);
-            Debug.Log(movement);
+            //Debug.Log(movement);
         }
     }
 }
