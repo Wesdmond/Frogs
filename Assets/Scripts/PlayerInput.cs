@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     private float _y;
     private bool freeze = false;
     private bool shootingMode = false;
+    private bool shoot = false;
     private Vector2 movement;
 
     public Vector2 GetMovement()
@@ -18,6 +19,21 @@ public class PlayerInput : MonoBehaviour
     public bool GetShootingMode()
     {
         return shootingMode;
+    }
+
+    public bool GetShoot()
+    {
+        return shoot;
+    }
+
+    public void SetShoot(bool value)
+    {
+        shoot = value;
+    }
+
+    public void SetFreeze(bool value)
+    {
+        freeze = value;
     }
 
     float Normale(float x)
@@ -39,6 +55,13 @@ public class PlayerInput : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 shootingMode = !shootingMode;
+            }
+            if (shootingMode)
+            {
+                if (Input.GetKeyUp(KeyCode.Z))
+                {
+                    shoot = true;
+                }
             }
             _x = Normale(_x);
             _y = Normale(_y);

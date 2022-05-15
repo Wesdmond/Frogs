@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField]
-    private int _maxShootingDuration = 6;
-    [SerializeField]
     private float _moveSpeed = 5f;
     [SerializeField]
     private Transform _movePoint;
@@ -15,6 +13,13 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField]
     private LayerMask _whatStopsMovement;
 
+    [Header("Tongue")]
+    [SerializeField]
+    private Transform _tongueTransform;
+    [SerializeField]
+    private Tongue _tongue;
+
+
     private Animator _animator;
     private string _activeDirection = "Down";
 
@@ -22,6 +27,7 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _movePoint.parent = null;
         _animator = GetComponent<Animator>();
+        _animator.speed = _moveSpeed / 5f;
     }
 
     void Update()
@@ -42,18 +48,21 @@ public class PlayerGridMovement : MonoBehaviour
                 if (Mathf.Abs(_x) == 1)
                 {
                     // There need to play sound
+                    // AudioManager.Instance.Play("Jump");
                     _animator.SetBool("Jumping", true);
                     if (_x > 0)
                     {
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Right";
                         _animator.SetBool(_activeDirection, true);
+                        _tongueTransform.rotation = Quaternion.Euler(0, 0, 90);
                     }
                     else
                     {
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Left";
                         _animator.SetBool(_activeDirection, true);
+                        _tongueTransform.rotation = Quaternion.Euler(0, 0, 270);
                     }
 
                     if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x, 0, 0), .2f, _whatStopsMovement))
@@ -70,12 +79,14 @@ public class PlayerGridMovement : MonoBehaviour
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Up";
                         _animator.SetBool(_activeDirection, true);
+                        _tongueTransform.rotation = Quaternion.Euler(0, 0, 180);
                     }
                     else
                     {
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Down";
                         _animator.SetBool(_activeDirection, true);
+                        _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
                     }
 
                     if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y, 0), .2f, _whatStopsMovement))
@@ -92,10 +103,19 @@ public class PlayerGridMovement : MonoBehaviour
             _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
+            _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
+            _playerInput.SetFreeze(_tongue.IsRunning);
+            if (_playerInput.GetShoot() && !_tongue.IsRunning)
+            {
+                _tongueTransform.gameObject.SetActive(true);
+                _tongue.ShootTongue();
+                _playerInput.SetShoot(false);
+            }
 
             if (Mathf.Abs(_x) == 1)
             {
                 // There need to play shooting sound
+                // AudioManager.Instance.Play("shoot")
 
 
                 if (_x > 0)
@@ -103,34 +123,38 @@ public class PlayerGridMovement : MonoBehaviour
                     _animator.SetBool(_activeDirection, false);
                     _activeDirection = "Right";
                     _animator.SetBool(_activeDirection, true);
+                    _tongueTransform.rotation = Quaternion.Euler(0, 0, 90);
                 }
                 else
                 {
                     _animator.SetBool(_activeDirection, false);
                     _activeDirection = "Left";
                     _animator.SetBool(_activeDirection, true);
+                    _tongueTransform.rotation = Quaternion.Euler(0, 0, 270);
                 }
             }
 
             else if (Mathf.Abs(_y) == 1)
             {
                 // There need to play shooting sound
-
+                // AudioManager.Instance.Play("Shoot");
 
                 if (_y > 0)
                 {
                     _animator.SetBool(_activeDirection, false);
                     _activeDirection = "Up";
                     _animator.SetBool(_activeDirection, true);
+                    _tongueTransform.rotation = Quaternion.Euler(0, 0, 180);
                 }
                 else
                 {
                     _animator.SetBool(_activeDirection, false);
                     _activeDirection = "Down";
                     _animator.SetBool(_activeDirection, true);
+                    _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
                 }
             }
-
+            
         }
     }
 }

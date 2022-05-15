@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -12,11 +13,11 @@ TagManager:
   - Water
   - UI
   - StopMovement
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Item
+  - Door
+  - Player
+  - Button
+  - Tongue
   - 
   - 
   - 
@@ -38,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Collider
+    uniqueID: 1660779221
+    locked: 0
   - name: Background
     uniqueID: 3709657811
     locked: 0
@@ -46,6 +50,9 @@ TagManager:
     locked: 0
   - name: Enviroment
     uniqueID: 705152139
+    locked: 0
+  - name: Buttons
+    uniqueID: 374508979
     locked: 0
   - name: Items
     uniqueID: 4240737521
