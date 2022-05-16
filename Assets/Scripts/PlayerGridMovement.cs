@@ -34,7 +34,7 @@ public class PlayerGridMovement : MonoBehaviour
     void Update()
     {
         // Moving mode
-        if (!_playerInput.GetShootingMode())
+        if (!_playerInput.GetShootingMode() || Vector3.Distance(transform.position, _movePoint.position) != 0f)
         {
             _animator.SetBool("Shooting", false);
             if (_time <= 0)
