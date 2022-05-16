@@ -22,6 +22,7 @@ public class PlayerGridMovement : MonoBehaviour
 
     private Animator _animator;
     private string _activeDirection = "Down";
+    private float _time = 0;
 
     void Start()
     {
@@ -36,7 +37,15 @@ public class PlayerGridMovement : MonoBehaviour
         if (!_playerInput.GetShootingMode())
         {
             _animator.SetBool("Shooting", false);
-            transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
+            Debug.Log(_time);
+            if (_time <= 0)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                _time -= 5f * Time.deltaTime;
+            }
 
             if (Vector3.Distance(transform.position, _movePoint.position) == 0f)
             {
@@ -50,11 +59,13 @@ public class PlayerGridMovement : MonoBehaviour
                     // There need to play sound
                     // AudioManager.Instance.Play("Jump");
                     _animator.SetBool("Jumping", true);
+                    _time = 1;
                     if (_x > 0)
                     {
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Right";
                         _animator.SetBool(_activeDirection, true);
+                        
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 90);
                     }
                     else
@@ -74,6 +85,7 @@ public class PlayerGridMovement : MonoBehaviour
                 {
                     // There need to play sound
                     _animator.SetBool("Jumping", true);
+                    _time = 1;
                     if (_y > 0)
                     {
                         _animator.SetBool(_activeDirection, false);
@@ -103,11 +115,11 @@ public class PlayerGridMovement : MonoBehaviour
             _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
-            _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
+            // _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
             _playerInput.SetFreeze(_tongue.IsRunning);
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
-                _tongueTransform.gameObject.SetActive(true);
+                // _tongueTransform.gameObject.SetActive(true);
                 _tongue.ShootTongue();
                 _playerInput.SetShoot(false);
             }
