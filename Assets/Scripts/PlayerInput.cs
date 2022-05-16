@@ -6,9 +6,9 @@ public class PlayerInput : MonoBehaviour
 {
     private float _x;
     private float _y;
-    private bool freeze = false;
-    private bool shootingMode = false;
-    private bool shoot = false;
+    private bool _freeze = false;
+    private bool _shootingMode = false;
+    private bool _shoot = false;
     private Vector2 movement;
 
     public Vector2 GetMovement()
@@ -18,22 +18,22 @@ public class PlayerInput : MonoBehaviour
 
     public bool GetShootingMode()
     {
-        return shootingMode;
+        return _shootingMode;
     }
 
     public bool GetShoot()
     {
-        return shoot;
+        return _shoot;
     }
 
     public void SetShoot(bool value)
     {
-        shoot = value;
+        _shoot = value;
     }
 
     public void SetFreeze(bool value)
     {
-        freeze = value;
+        _freeze = value;
     }
 
     float Normale(float x)
@@ -47,27 +47,31 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (!freeze)
+        if (!_freeze)
         {
             _x = Input.GetAxisRaw("Horizontal");
             _y = Input.GetAxisRaw("Vertical");
 
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                shootingMode = !shootingMode;
+                _shootingMode = !_shootingMode;
             }
-            if (shootingMode)
+            if (_shootingMode)
             {
                 if (Input.GetKeyUp(KeyCode.Z))
                 {
-                    shoot = true;
+                    _shoot = true;
                 }
+            }
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                Debug.Log("YOU RESTART");
+                GameManager.Instance.Resrart();
             }
             _x = Normale(_x);
             _y = Normale(_y);
             
             movement = new Vector2(_x, _y);
-            //Debug.Log(movement);
         }
     }
 }

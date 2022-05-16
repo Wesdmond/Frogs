@@ -11,6 +11,8 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField]
     private PlayerInput _playerInput;
     [SerializeField]
+    private MoveCounter _moveCounter;
+    [SerializeField]
     private LayerMask _whatStopsMovement;
 
     [Header("Tongue")]
@@ -55,6 +57,7 @@ public class PlayerGridMovement : MonoBehaviour
 
                 if (Mathf.Abs(_x) == 1)
                 {
+                    _moveCounter.Move();
                     // There need to play sound
                     // AudioManager.Instance.Play("Jump");
                     _animator.SetBool("Jumping", true);
@@ -82,6 +85,7 @@ public class PlayerGridMovement : MonoBehaviour
                 }
                 else if (Mathf.Abs(_y) == 1)
                 {
+                    _moveCounter.Move();
                     // There need to play sound
                     _animator.SetBool("Jumping", true);
                     _time = 1;
@@ -118,6 +122,7 @@ public class PlayerGridMovement : MonoBehaviour
             _playerInput.SetFreeze(_tongue.IsRunning);
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
+                _moveCounter.Move();
                 _tongueTransform.gameObject.SetActive(true);
                 _tongue.ShootTongue();
                 _playerInput.SetShoot(false);
