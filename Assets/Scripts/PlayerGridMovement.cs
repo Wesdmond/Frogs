@@ -37,14 +37,13 @@ public class PlayerGridMovement : MonoBehaviour
         if (!_playerInput.GetShootingMode())
         {
             _animator.SetBool("Shooting", false);
-            Debug.Log(_time);
             if (_time <= 0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
             }
             else
             {
-                _time -= 5f * Time.deltaTime;
+                _time -= _moveSpeed * Time.deltaTime;
             }
 
             if (Vector3.Distance(transform.position, _movePoint.position) == 0f)

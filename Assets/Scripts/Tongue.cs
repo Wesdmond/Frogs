@@ -26,7 +26,7 @@ public class Tongue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(_distance);
+        Debug.Log("PRIVET");
         // id of Door layer = 8
         if (collider.gameObject.layer == 8)
         {
@@ -43,12 +43,6 @@ public class Tongue : MonoBehaviour
             _itemTransform = collider.gameObject.transform;
             RetractTongue();
         }
-    }
-
-
-    void Start()
-    {
-
     }
 
     void Abort()
@@ -99,6 +93,7 @@ public class Tongue : MonoBehaviour
             _distance -= _deltaDistance;
             yield return null;
         }
+        _itemTransform = null;
         isRunning = false;
     }
 
