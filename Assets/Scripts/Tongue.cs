@@ -26,7 +26,6 @@ public class Tongue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("PRIVET");
         // id of Door layer = 8
         if (collider.gameObject.layer == 8)
         {
