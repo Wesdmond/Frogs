@@ -114,11 +114,11 @@ public class PlayerGridMovement : MonoBehaviour
             _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
-            // _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
+            _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
             _playerInput.SetFreeze(_tongue.IsRunning);
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
-                // _tongueTransform.gameObject.SetActive(true);
+                _tongueTransform.gameObject.SetActive(true);
                 _tongue.ShootTongue();
                 _playerInput.SetShoot(false);
             }
