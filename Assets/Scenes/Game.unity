@@ -1860,22 +1860,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8822579461114379803, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
-      propertyPath: OnButtonPressed.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8822579461114379803, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
-      propertyPath: OnButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8822579461114379803, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
-      propertyPath: OnButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1202480068}
-    - target: {fileID: 8822579461114379803, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
-      propertyPath: OnButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
 --- !u!114 &979424160 stripped
@@ -7245,11 +7229,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1202480068 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3296537287542605542, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
-  m_PrefabInstance: {fileID: 3296537286445032738}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1235390879
 GameObject:
   m_ObjectHideFlags: 0
@@ -7634,21 +7613,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3296537287517202225, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3296537287517202230, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605542, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
-      propertyPath: _moveSpeed
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: _moveCounter
