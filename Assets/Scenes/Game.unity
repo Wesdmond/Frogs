@@ -7316,7 +7316,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -7350,7 +7350,7 @@ MonoBehaviour:
   m_AssetsPPU: 10
   m_RefResolutionX: 320
   m_RefResolutionY: 180
-  m_UpscaleRT: 1
+  m_UpscaleRT: 0
   m_PixelSnapping: 1
   m_CropFrameX: 1
   m_CropFrameY: 1
@@ -7624,14 +7624,6 @@ PrefabInstance:
     - target: {fileID: 1728095655321659924, guid: 8e37568f3bd4a0c4cac78ba0c2a08574, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1728095656105455446, guid: 8e37568f3bd4a0c4cac78ba0c2a08574, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1728095656105455446, guid: 8e37568f3bd4a0c4cac78ba0c2a08574, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 114.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e37568f3bd4a0c4cac78ba0c2a08574, type: 3}
