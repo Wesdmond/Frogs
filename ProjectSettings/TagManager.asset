@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -54,11 +55,11 @@ TagManager:
   - name: Buttons
     uniqueID: 374508979
     locked: 0
-  - name: Items
-    uniqueID: 4240737521
-    locked: 0
   - name: Player
     uniqueID: 3069288515
+    locked: 0
+  - name: Items
+    uniqueID: 4240737521
     locked: 0
   - name: Default
     uniqueID: 0

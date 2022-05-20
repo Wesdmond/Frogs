@@ -27,7 +27,7 @@ public class Tongue : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         // id of Door layer = 8
-        if (collider.gameObject.layer == 8)
+        if (collider.gameObject.tag == "Door")
         {
             Abort();
         }
@@ -46,9 +46,12 @@ public class Tongue : MonoBehaviour
 
     void Abort()
     {
-        StopCoroutine(_coroutineInstance);
+        if (_coroutineInstance != null)
+        {
+            StopCoroutine(_coroutineInstance);
+        }
         _itemTransform = null;
-        isRunning = false;
+        RetractTongue();
     }
 
 

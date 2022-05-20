@@ -11,9 +11,12 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField]
     private PlayerInput _playerInput;
     [SerializeField]
+    private LayerMask _whatStopsMovement;
+    [Header("MoveCounter")]
+    [SerializeField]
     private MoveCounter _moveCounter;
     [SerializeField]
-    private LayerMask _whatStopsMovement;
+    private bool enableMoveCounter = false;
 
     [Header("Tongue")]
     [SerializeField]
@@ -57,7 +60,7 @@ public class PlayerGridMovement : MonoBehaviour
 
                 if (Mathf.Abs(_x) == 1)
                 {
-                    _moveCounter.Move();
+                    
                     // There need to play sound
                     // AudioManager.Instance.Play("Jump");
                     _animator.SetBool("Jumping", true);
@@ -81,11 +84,14 @@ public class PlayerGridMovement : MonoBehaviour
                     if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x, 0, 0), .2f, _whatStopsMovement))
                     {
                         _movePoint.position = transform.position + new Vector3(_x, 0, 0);
+                        if (enableMoveCounter)
+                        {
+                            _moveCounter.Move();
+                        }
                     }
                 }
                 else if (Mathf.Abs(_y) == 1)
                 {
-                    _moveCounter.Move();
                     // There need to play sound
                     _animator.SetBool("Jumping", true);
                     _time = 1;
@@ -107,6 +113,10 @@ public class PlayerGridMovement : MonoBehaviour
                     if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y, 0), .2f, _whatStopsMovement))
                     {
                         _movePoint.position = transform.position + new Vector3(0, _y, 0);
+                        if (enableMoveCounter)
+                        {
+                            _moveCounter.Move();
+                        }
                     }
                 }
             }
@@ -122,7 +132,10 @@ public class PlayerGridMovement : MonoBehaviour
             _playerInput.SetFreeze(_tongue.IsRunning);
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
-                _moveCounter.Move();
+                if (enableMoveCounter)
+                {
+                    _moveCounter.Move();
+                }
                 _tongueTransform.gameObject.SetActive(true);
                 _tongue.ShootTongue();
                 _playerInput.SetShoot(false);
