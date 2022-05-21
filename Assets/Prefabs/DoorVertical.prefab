@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 330946351596804488}
   m_Layer: 6
   m_Name: DoorVertical
-  m_TagString: Door
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 532712997284325575}
   m_Layer: 6
   m_Name: Logic
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

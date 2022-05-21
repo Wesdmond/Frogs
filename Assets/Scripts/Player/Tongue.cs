@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Tongue : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Tongue : MonoBehaviour
     private SpriteRenderer _tongueSprite;
     [SerializeField]
     private BoxCollider2D _tongueCollider;
+    [SerializeField]
+    private Transform _frogTransform;
 
     [Header("Settings")]
     [SerializeField]
@@ -20,27 +23,31 @@ public class Tongue : MonoBehaviour
     private float _distance = 0;
     private bool isRunning = false;
     private Coroutine _coroutineInstance = null;
-    private Transform _itemTransform = null;
+    private Transform _objectTransform = null;
 
+    public float Speed { get => _speed; }
     public bool IsRunning { get => isRunning;}
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // id of Door layer = 8
-        if (collider.gameObject.tag == "Door")
+        switch(collider.tag)
         {
-            Abort();
-        }
+            case "Door":
+                Abort();
+                RetractTongue();
+                break;
 
-        // id of Item layer = 7
-        if (collider.gameObject.tag == "Item")
-        {
-            if (_coroutineInstance != null)
-            {
-                StopCoroutine(_coroutineInstance);
-            }
-            _itemTransform = collider.gameObject.transform;
-            RetractTongue();
+            case "Item":
+                Abort();
+                _objectTransform = collider.gameObject.transform;
+                RetractTongue();
+                break;
+
+            case "Rock":
+                Abort();
+                _objectTransform = collider.gameObject.transform;
+                StartPull();
+                break;
         }
     }
 
@@ -50,8 +57,7 @@ public class Tongue : MonoBehaviour
         {
             StopCoroutine(_coroutineInstance);
         }
-        _itemTransform = null;
-        RetractTongue();
+        _objectTransform = null;
     }
 
 
@@ -81,22 +87,50 @@ public class Tongue : MonoBehaviour
             float _deltaDistance = _speed * Time.deltaTime;
             Vector2 moveVector = new Vector2(0, _deltaDistance);
             ChangeScaleTongue(-moveVector);
-            if (_itemTransform != null)
+            if (_objectTransform != null)
             {
-                if (Vector2.Distance(_itemTransform.position, transform.parent.parent.position) > 1)
+                if (Vector2.Distance(_objectTransform.position, _frogTransform.position) > 1)
                 {
-                    _itemTransform.position = Vector3.MoveTowards(_itemTransform.position, transform.parent.parent.position, _deltaDistance);
+                    _objectTransform.position = Vector3.MoveTowards(_objectTransform.position, _frogTransform.position, _deltaDistance);
                 }
                 else
                 {
-                    FixGrid(_itemTransform);
+                    FixGrid(_objectTransform);
                 }
             }
             _distance -= _deltaDistance;
             yield return null;
         }
-        _itemTransform = null;
+        _objectTransform = null;
         isRunning = false;
+    }
+
+    private IEnumerator PullFrog()
+    {
+        while (_distance > 0)
+        {
+            float _deltaDistance = _speed * Time.deltaTime;
+            Vector2 moveVector = new Vector2(0, _deltaDistance);
+            ChangeScaleTongueForFrog(-moveVector);
+            if (Vector2.Distance(_frogTransform.position, _objectTransform.position) > 1)
+            {
+                _frogTransform.position = Vector3.MoveTowards(_frogTransform.position, _objectTransform.position, _deltaDistance);
+            }
+            else
+            {
+                FixGrid(_frogTransform);
+            }
+            _distance -= _deltaDistance;
+            yield return null;
+        }
+        _objectTransform = null;
+        isRunning = false;
+    }
+
+
+    public void StartPull()
+    {
+        _coroutineInstance = StartCoroutine(PullFrog());
     }
 
     public void ShootTongue()
@@ -116,5 +150,13 @@ public class Tongue : MonoBehaviour
         _tongueTransofrm.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
         _tongueCollider.size += deltaScale;
     }
+
+    private void ChangeScaleTongueForFrog(Vector2 deltaScale)
+    {
+        transform.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
+        _tongueSprite.size += deltaScale;
+        _tongueTransofrm.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
+        _tongueCollider.size += deltaScale;
+    }    
 
 }

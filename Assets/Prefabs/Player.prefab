@@ -153,6 +153,7 @@ MonoBehaviour:
     m_Bits: 64
   _moveCounter: {fileID: 0}
   enableMoveCounter: 0
+  _animator: {fileID: 3296537287542605544}
   _tongueTransform: {fileID: 3296537287517202230}
   _tongue: {fileID: 3296537286949192059}
 --- !u!95 &3296537287542605544
@@ -259,6 +260,18 @@ PrefabInstance:
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: _frogTransform
+      value: 
+      objectReference: {fileID: 3296537287298915383}
+    - target: {fileID: 8103839226369263930, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103839226369263930, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_SortingOrder

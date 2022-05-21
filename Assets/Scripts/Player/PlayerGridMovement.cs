@@ -17,6 +17,8 @@ public class PlayerGridMovement : MonoBehaviour
     private MoveCounter _moveCounter;
     [SerializeField]
     private bool enableMoveCounter = false;
+    [SerializeField]
+    private Animator _animator;
 
     [Header("Tongue")]
     [SerializeField]
@@ -25,14 +27,15 @@ public class PlayerGridMovement : MonoBehaviour
     private Tongue _tongue;
 
 
-    private Animator _animator;
     private string _activeDirection = "Down";
     private float _time = 0;
+    private float _basicSpeed;
+
 
     void Start()
     {
+        _basicSpeed = _moveSpeed;
         _movePoint.parent = null;
-        _animator = GetComponent<Animator>();
         _animator.speed = _moveSpeed / 5f;
     }
 
@@ -129,7 +132,16 @@ public class PlayerGridMovement : MonoBehaviour
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
             _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
+            if (_tongue.IsRunning)
+            {
+                _moveSpeed = _tongue.Speed;
+            }
+            else
+            {
+                _moveSpeed = _basicSpeed;
+            }
             _playerInput.SetFreeze(_tongue.IsRunning);
+
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
                 if (enableMoveCounter)
@@ -138,6 +150,7 @@ public class PlayerGridMovement : MonoBehaviour
                 }
                 _tongueTransform.gameObject.SetActive(true);
                 _tongue.ShootTongue();
+
                 _playerInput.SetShoot(false);
             }
 
