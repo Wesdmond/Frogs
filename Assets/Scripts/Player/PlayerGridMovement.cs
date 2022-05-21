@@ -149,7 +149,7 @@ public class PlayerGridMovement : MonoBehaviour
                     _moveCounter.Move();
                 }
                 _tongueTransform.gameObject.SetActive(true);
-                _tongue.ShootTongue();
+                _tongue.StartShootTongue();
 
                 _playerInput.SetShoot(false);
             }
