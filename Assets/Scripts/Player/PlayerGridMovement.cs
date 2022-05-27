@@ -161,7 +161,6 @@ public class PlayerGridMovement : MonoBehaviour
 
                 _tongueTransform.gameObject.SetActive(true);
                 _tongueSpriteRenderer.sortingOrder = _tongueSortingOrder;
-                print(_tongueSortingOrder);
                 _tongue.StartShootTongue();
 
                 _playerInput.SetFreeze(true);
