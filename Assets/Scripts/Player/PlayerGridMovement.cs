@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField]
-    private float _moveSpeed = 5f;
+    private float _moveSpeed = 5;
+    [SerializeField]
+    private int _moveDistance = 500;
     [SerializeField]
     private Transform _movePoint;
     [SerializeField]
@@ -36,25 +38,36 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _basicSpeed = _moveSpeed;
         _movePoint.parent = null;
-        _animator.speed = _moveSpeed / 5f;
+        _animator.speed = _moveSpeed / 5;
     }
 
     void Update()
     {
+
+        if (_time <= 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            _time -= _moveSpeed * Time.deltaTime;
+        }
+
         // Moving mode
         if (!_playerInput.GetShootingMode() || Vector3.Distance(transform.position, _movePoint.position) != 0f)
         {
+
             _animator.SetBool("Shooting", false);
-            if (_time <= 0)
+            /*if (_time <= 0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
             }
             else
             {
                 _time -= _moveSpeed * Time.deltaTime;
-            }
+            }*/
 
-            if (Vector3.Distance(transform.position, _movePoint.position) == 0f)
+            if (Vector3.Distance(transform.position, _movePoint.position) == 0.0f)
             {
                 _animator.SetBool("Jumping", false);
 
@@ -84,9 +97,9 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 270);
                     }
 
-                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x, 0, 0), .2f, _whatStopsMovement))
+                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _whatStopsMovement))
                     {
-                        _movePoint.position = transform.position + new Vector3(_x, 0, 0);
+                        _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
                         if (enableMoveCounter)
                         {
                             _moveCounter.Move();
@@ -113,9 +126,9 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
                     }
 
-                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y, 0), .2f, _whatStopsMovement))
+                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement))
                     {
-                        _movePoint.position = transform.position + new Vector3(0, _y, 0);
+                        _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
                         if (enableMoveCounter)
                         {
                             _moveCounter.Move();
@@ -131,16 +144,6 @@ public class PlayerGridMovement : MonoBehaviour
             _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
-            _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
-            if (_tongue.IsRunning)
-            {
-                _moveSpeed = _tongue.Speed;
-            }
-            else
-            {
-                _moveSpeed = _basicSpeed;
-            }
-            _playerInput.SetFreeze(_tongue.IsRunning);
 
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
@@ -151,8 +154,21 @@ public class PlayerGridMovement : MonoBehaviour
                 _tongueTransform.gameObject.SetActive(true);
                 _tongue.StartShootTongue();
 
+                _playerInput.SetFreeze(true);
                 _playerInput.SetShoot(false);
             }
+
+            _tongueTransform.gameObject.SetActive(_tongue.IsRunning);
+            _playerInput.SetFreeze(_tongue.IsRunning);
+            if (_tongue.IsRunning)
+            {
+                _moveSpeed = _tongue.Speed;
+            }
+            else
+            {
+                _moveSpeed = _basicSpeed;
+            }
+
 
             if (Mathf.Abs(_x) == 1)
             {

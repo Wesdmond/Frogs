@@ -258,4 +258,12 @@ MonoBehaviour:
     m_RuleTransform: 0
   alwaysConnect: 0
   tilesToConnect: []
+  tiles1Left: []
+  tiles2Left: []
+  tiles1Right: []
+  tiles2Right: []
+  tiles1Down: []
+  tiles2Down: []
+  tiles1Up: []
+  tiles2Up: []
   checkSelf: 0

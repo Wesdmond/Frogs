@@ -8,9 +8,10 @@ public class Tongue : MonoBehaviour
     [SerializeField] private BoxCollider2D _tongueCollider;
     [SerializeField] private Transform _frogTransform;
 
-    [Header("Settings")] [SerializeField] private float _speed = 0.01f;
+    [Header("Settings")] [SerializeField] private float _speed = 6;
     [SerializeField] private float _maxTongueDistance = 6f;
     private float _distance = 0;
+    private Transform objectTransform;
     private Coroutine _coroutineInstance;
 
     public bool IsRunning { get; private set; } = false;
@@ -44,6 +45,11 @@ public class Tongue : MonoBehaviour
 
     private void Abort()
     {
+        if (objectTransform != null)
+        {
+            FixGrid(objectTransform);
+            objectTransform = null;
+        }
         StopTongueCoroutine();
     }
 
@@ -64,6 +70,7 @@ public class Tongue : MonoBehaviour
     private void StopTongueCoroutine()
     {
         if (_coroutineInstance == null) return;
+
         StopCoroutine(_coroutineInstance);
         _coroutineInstance = null;
         IsRunning = false;
@@ -85,6 +92,8 @@ public class Tongue : MonoBehaviour
     private IEnumerator RetractTongue(Transform itemTransform)
     {
         bool isItemNull = itemTransform == null;
+        if (!isItemNull) objectTransform = itemTransform;
+
         while (_distance > 0)
         {
             float deltaDistance = _speed * Time.deltaTime;
@@ -123,7 +132,6 @@ public class Tongue : MonoBehaviour
                 targetTransform.position,
                 _frogTransform.position
             );
-            Debug.Log(distanceBetweenPullTargetAndFrog);
             if (distanceBetweenPullTargetAndFrog > 1)
             {
                 _frogTransform.position = Vector3.MoveTowards(

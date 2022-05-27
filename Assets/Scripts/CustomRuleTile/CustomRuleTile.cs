@@ -8,6 +8,41 @@ using System.Linq;
 public class CustomRuleTile : RuleTile<CustomRuleTile.Neighbor> {
     public bool alwaysConnect;
     public TileBase[] tilesToConnect;
+
+    public List<TileBase> tiles1Left;
+    public List<TileBase> tiles2Left;
+    public List<TileBase> tiles1Right;
+    public List<TileBase> tiles2Right;
+    public List<TileBase> tiles1Down;
+    public List<TileBase> tiles2Down;
+    public List<TileBase> tiles1Up;
+    public List<TileBase> tiles2Up;
+
+    private List<List<TileBase>> tileSet;
+    
+    void InitTiles()
+    {
+        tileSet.Add(tiles1Left);
+        tileSet.Add(tiles2Left);
+        tileSet.Add(tiles1Right);
+        tileSet.Add(tiles2Right);
+        tileSet.Add(tiles1Down);
+        tileSet.Add(tiles2Down);
+        tileSet.Add(tiles1Up);
+        tileSet.Add(tiles2Up);
+    }
+
+    void Init()
+    {
+        InitTiles();
+    }
+
+    void Start()
+    {
+        Init();
+    }
+
+
     public bool checkSelf;
 
     public class Neighbor : RuleTile.TilingRule.Neighbor {

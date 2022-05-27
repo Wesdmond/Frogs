@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
+  _moveDistance: 1
   _movePoint: {fileID: 3296537287298915383}
   _playerInput: {fileID: 3296537287542605540}
   _whatStopsMovement:
@@ -193,7 +194,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.8333333, y: 0.8333333}
     newSize: {x: 0.625, y: 0.6875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -212,10 +213,6 @@ PrefabInstance:
     - target: {fileID: 8103839225867726707, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_Name
       value: Tongue
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103839225867726707, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_RootOrder
@@ -265,18 +262,6 @@ PrefabInstance:
       propertyPath: _frogTransform
       value: 
       objectReference: {fileID: 3296537287298915383}
-    - target: {fileID: 8103839226369263930, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103839226369263930, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
 --- !u!114 &3296537286949192059 stripped

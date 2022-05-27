@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
 
+
     public void Open()
     {
         _animator.SetBool("Open", true);
