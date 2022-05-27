@@ -27,11 +27,14 @@ public class PlayerGridMovement : MonoBehaviour
     private Transform _tongueTransform;
     [SerializeField]
     private Tongue _tongue;
+    [SerializeField]
+    private SpriteRenderer _tongueSpriteRenderer;
 
 
     private string _activeDirection = "Down";
     private float _time = 0;
     private float _basicSpeed;
+    private int _tongueSortingOrder = 11;
 
 
     void Start()
@@ -74,6 +77,9 @@ public class PlayerGridMovement : MonoBehaviour
                 float _x = _playerInput.GetMovement().x;
                 float _y = _playerInput.GetMovement().y;
 
+                if (_y < 0) _tongueSortingOrder = 11;
+                else if (_y != 0 || _x != 0) _tongueSortingOrder = 9;
+
                 if (Mathf.Abs(_x) == 1)
                 {
                     
@@ -86,7 +92,6 @@ public class PlayerGridMovement : MonoBehaviour
                         _animator.SetBool(_activeDirection, false);
                         _activeDirection = "Right";
                         _animator.SetBool(_activeDirection, true);
-                        
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 90);
                     }
                     else
@@ -144,6 +149,8 @@ public class PlayerGridMovement : MonoBehaviour
             _animator.SetBool("Shooting", true);
             float _x = _playerInput.GetMovement().x;
             float _y = _playerInput.GetMovement().y;
+            if (_y < 0) _tongueSortingOrder = 11;
+            else if (_y != 0 || _x != 0) _tongueSortingOrder = 9;
 
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
@@ -151,7 +158,10 @@ public class PlayerGridMovement : MonoBehaviour
                 {
                     _moveCounter.Move();
                 }
+
                 _tongueTransform.gameObject.SetActive(true);
+                _tongueSpriteRenderer.sortingOrder = _tongueSortingOrder;
+                print(_tongueSortingOrder);
                 _tongue.StartShootTongue();
 
                 _playerInput.SetFreeze(true);

@@ -157,6 +157,7 @@ MonoBehaviour:
   _animator: {fileID: 3296537287542605544}
   _tongueTransform: {fileID: 3296537287517202230}
   _tongue: {fileID: 3296537286949192059}
+  _tongueSpriteRenderer: {fileID: 3296537285503493438}
 --- !u!95 &3296537287542605544
 Animator:
   serializedVersion: 4
@@ -264,6 +265,11 @@ PrefabInstance:
       objectReference: {fileID: 3296537287298915383}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+--- !u!212 &3296537285503493438 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+  m_PrefabInstance: {fileID: 6757996373669447746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3296537286949192059 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
