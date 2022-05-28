@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    private void Start()
+    {
+        AudioManager.Instance.Play("MainTheme");
+    }
+
     public void LoadLoseScene()
     {
         
