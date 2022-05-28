@@ -8,7 +8,7 @@ public class Finish : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
-            if ((SceneManager.GetActiveScene().buildIndex) + 1 < (SceneManager.GetAllScenes().Length - 1))
+            if ((SceneManager.GetActiveScene().buildIndex) + 1 < (SceneManager.sceneCount - 1))
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             else print("This is the last level");
     }
