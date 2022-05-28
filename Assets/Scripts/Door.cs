@@ -10,7 +10,14 @@ public class Door : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    private bool _doorOpen = false;
 
+    private void Start()
+    {
+        if (_doorOpen)
+            Open();
+    }
 
     public void Open()
     {

@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3296537287542605545}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -260,9 +260,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: _speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: _frogTransform
       value: 
       objectReference: {fileID: 3296537287298915383}
+    - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: _maxTongueDistance
+      value: 12.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
 --- !u!212 &3296537285503493438 stripped
