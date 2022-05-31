@@ -12,8 +12,8 @@ public class ButtonScript : MonoBehaviour
     public UnityEvent OnButtonPressed;
     public UnityEvent OnButtonDepressed;
 
-    private string pressButtonTrigger = "Button Pressed";
-    private string depressButtonTrigger = "Button Depressed";
+    private readonly string pressButtonTrigger = "Button Pressed";
+    private readonly string depressButtonTrigger = "Button Depressed";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

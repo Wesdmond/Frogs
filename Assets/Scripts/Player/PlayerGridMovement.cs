@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class PlayerGridMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float _moveSpeed = 5;
-    [SerializeField]
-    private int _moveDistance = 500;
-    [SerializeField]
-    private Transform _movePoint;
-    [SerializeField]
-    private PlayerInput _playerInput;
-    [SerializeField]
-    private LayerMask _whatStopsMovement;
+    [SerializeField] private float _moveSpeed = 5;
+    [SerializeField] private int _moveDistance = 500;
+    [SerializeField] private Transform _movePoint;
+    [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private LayerMask _whatStopsMovement;
+    [SerializeField] private LayerMask _drownLayer;
+
     [Header("MoveCounter")]
     [SerializeField]
     private MoveCounter _moveCounter;
@@ -102,14 +99,17 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 270);
                     }
 
-                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _whatStopsMovement))
+                    if (Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _drownLayer) != null)
                     {
                         _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
-                        if (enableMoveCounter)
-                        {
-                            _moveCounter.Move();
-                        }
                     }
+
+                    else if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _whatStopsMovement))
+                    {
+                        _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
+                        if (enableMoveCounter) _moveCounter.Move();
+                    }
+
                 }
                 else if (Mathf.Abs(_y) == 1)
                 {
@@ -131,14 +131,17 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
                     }
 
-                    if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement))
+                    if (Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _drownLayer) != null)
                     {
                         _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
-                        if (enableMoveCounter)
-                        {
-                            _moveCounter.Move();
-                        }
                     }
+                    else if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement))
+                    {
+                        _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
+                        if (enableMoveCounter) _moveCounter.Move();
+                    }
+                    //tmp = Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement);
+
                 }
             }
         }
@@ -154,10 +157,7 @@ public class PlayerGridMovement : MonoBehaviour
 
             if (_playerInput.GetShoot() && !_tongue.IsRunning)
             {
-                if (enableMoveCounter)
-                {
-                    _moveCounter.Move();
-                }
+                if (enableMoveCounter) _moveCounter.Move();
 
                 _tongueTransform.gameObject.SetActive(true);
                 _tongueSpriteRenderer.sortingOrder = _tongueSortingOrder;

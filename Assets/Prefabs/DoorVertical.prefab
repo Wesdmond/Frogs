@@ -49,6 +49,7 @@ MonoBehaviour:
   _animator: {fileID: 1689537537675599418}
   _boxCollider2D: {fileID: 3683699700274193182}
   _spriteRenderer: {fileID: 799867909222157930}
+  _doorOpen: 0
 --- !u!61 &3683699700274193182
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -73,7 +74,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8333333, y: 0.8333333}
   m_EdgeRadius: 0
 --- !u!1 &8030380700490148286
 GameObject:

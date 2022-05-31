@@ -115,6 +115,9 @@ MonoBehaviour:
   _tongueSprite: {fileID: 8103839227880811900}
   _tongueCollider: {fileID: 8103839226369263931}
   _frogTransform: {fileID: 0}
+  _whatStopsMovement:
+    serializedVersion: 2
+    m_Bits: 128
   _speed: 10
   _maxTongueDistance: 3.5
 --- !u!61 &8103839226369263931

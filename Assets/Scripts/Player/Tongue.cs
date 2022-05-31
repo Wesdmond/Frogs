@@ -7,6 +7,7 @@ public class Tongue : MonoBehaviour
     [SerializeField] private SpriteRenderer _tongueSprite;
     [SerializeField] private BoxCollider2D _tongueCollider;
     [SerializeField] private Transform _frogTransform;
+    [SerializeField] private LayerMask _whatStopsMovement;
 
     [Header("Settings")] [SerializeField] private float _speed = 6;
     [SerializeField] private float _maxTongueDistance = 6f;
@@ -117,7 +118,12 @@ public class Tongue : MonoBehaviour
 
             yield return null;
         }
-        if (!isItemNull) FixGrid(itemTransform);
+        if (!isItemNull)
+        {
+            FixGrid(itemTransform);
+            if (itemTransform.tag == "Item")
+                itemTransform.GetComponent<Box>().Drown();
+        }
         IsRunning = false;
     }
 

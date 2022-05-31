@@ -32,8 +32,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         m_instance = GetComponent<T>();
-        Debug.Log("Created " + typeof(T).ToString());
+        //Debug.Log("Created " + typeof(T).ToString());
         DontDestroyOnLoad(gameObject);
         if (m_instance == null)
             return;
