@@ -58,6 +58,8 @@ public class PlayerGridMovement : MonoBehaviour
         {
 
             _animator.SetBool("Shooting", false);
+
+            // Legacy code
             /*if (_time <= 0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
@@ -79,9 +81,9 @@ public class PlayerGridMovement : MonoBehaviour
 
                 if (Mathf.Abs(_x) == 1)
                 {
-                    
                     // There need to play sound
                     // AudioManager.Instance.Play("Jump");
+
                     _animator.SetBool("Jumping", true);
                     _time = 1;
                     if (_x > 0)
@@ -99,12 +101,14 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 270);
                     }
 
+                    // Check if there drowning object
                     if (Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _drownLayer) != null)
                     {
                         _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
                     }
 
-                    else if (!Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _whatStopsMovement))
+                    // Check if there no tile collider
+                    else if (Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _whatStopsMovement) == null)
                     {
                         _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
                         if (enableMoveCounter) _moveCounter.Move();
@@ -114,6 +118,8 @@ public class PlayerGridMovement : MonoBehaviour
                 else if (Mathf.Abs(_y) == 1)
                 {
                     // There need to play sound
+                    // AudioManager.Instance.Play("Jump");
+
                     _animator.SetBool("Jumping", true);
                     _time = 1;
                     if (_y > 0)
@@ -131,16 +137,18 @@ public class PlayerGridMovement : MonoBehaviour
                         _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
                     }
 
+                    // Check if there drowning object
                     if (Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _drownLayer) != null)
                     {
                         _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
                     }
-                    else if (!Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement))
+
+                    // Check if there no tile collider
+                    else if (Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement) == null)
                     {
                         _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
                         if (enableMoveCounter) _moveCounter.Move();
                     }
-                    //tmp = Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _whatStopsMovement);
 
                 }
             }
@@ -183,7 +191,6 @@ public class PlayerGridMovement : MonoBehaviour
             {
                 // There need to play shooting sound
                 // AudioManager.Instance.Play("shoot")
-
 
                 if (_x > 0)
                 {
