@@ -3863,6 +3863,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorHorizontal
       objectReference: {fileID: 0}
+    - target: {fileID: 9040584963217357726, guid: 1c3d1f95fe9b75847b6a553130b1c6a4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81c4999dff52c744dac37239592913ec, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d1f95fe9b75847b6a553130b1c6a4, type: 3}
 --- !u!114 &154597755098712171 stripped
@@ -3931,6 +3935,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorVertical
       objectReference: {fileID: 0}
+    - target: {fileID: 799867909222157930, guid: 72ed6bcb597f8ce418f5d15d6b0391ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61d33dc78560ef04bb86746b3cb59763, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ed6bcb597f8ce418f5d15d6b0391ad, type: 3}
 --- !u!114 &330946352304014147 stripped

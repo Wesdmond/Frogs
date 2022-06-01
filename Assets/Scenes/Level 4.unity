@@ -2352,6 +2352,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3296537286949192059, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: _maxTongueDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605542, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_Name
       value: Player
