@@ -100,23 +100,53 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
       name: doors2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b43ef5cfb89fcfa41818ae94bdf59214
+      internalID: -2042494294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: doors2_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 12
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 134b3c3930643d648bc025b0895dad0c
+      internalID: 1255059038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: doors2_2
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc9a113cfd3d635458f0f8a4ef0bf7e7
-      internalID: -8969681
+      spriteID: c1d67109f64282247828b30de73dbfd7
+      internalID: 337861854
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: doors2_1
+      name: doors2_3
       rect:
         serializedVersion: 2
         x: 12
@@ -151,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 389ad9c192eafa447a5c7ecc4bdc1d9d
-      internalID: -930849303
+      spriteID: 8460689a6d953254badb9e5d27934609
+      internalID: 858465947
       vertices: []
       indices: 
       edges: []
@@ -168,8 +198,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      doors2_0: -8969681
-      doors2_1: -930849303
+      doors2_0: -2042494294
+      doors2_1: 1255059038
+      doors2_2: 337861854
+      doors2_3: 858465947
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

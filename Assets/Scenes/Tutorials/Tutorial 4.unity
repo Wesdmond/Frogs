@@ -1889,6 +1889,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorVertical
       objectReference: {fileID: 0}
+    - target: {fileID: 799867909222157930, guid: 72ed6bcb597f8ce418f5d15d6b0391ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61d33dc78560ef04bb86746b3cb59763, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ed6bcb597f8ce418f5d15d6b0391ad, type: 3}
 --- !u!114 &996290703 stripped
@@ -2081,6 +2085,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405143155364387711, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: daf473c4e764a7546b8fb8e9b0e3f6fe, type: 2}
     - target: {fileID: 2633646686759265510, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
       propertyPath: m_Name
       value: Button
