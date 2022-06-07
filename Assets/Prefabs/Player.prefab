@@ -98,10 +98,13 @@ MonoBehaviour:
   _playerInput: {fileID: 3296537287542605540}
   _whatStopsMovement:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   _drownLayer:
     serializedVersion: 2
     m_Bits: 4096
+  _itemLayer:
+    serializedVersion: 2
+    m_Bits: 128
   _moveCounter: {fileID: 0}
   enableMoveCounter: 0
   _animator: {fileID: 2144314081010556735}

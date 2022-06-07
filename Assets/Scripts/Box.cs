@@ -12,7 +12,7 @@ public class Box : MonoBehaviour
 
     public void Drown() 
     {
-        if (_boxCollider2D.IsTouchingLayers(_whatStopsMovement))
+        if (_boxCollider2D.IsTouchingLayers(_whatStopsMovement) && !_boxCollider2D.IsTouchingLayers(_drownLayer))
         {
 
             _animator.SetTrigger("InWater");

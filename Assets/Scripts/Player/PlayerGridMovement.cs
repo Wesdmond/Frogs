@@ -10,6 +10,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private LayerMask _whatStopsMovement;
     [SerializeField] private LayerMask _drownLayer;
+    [SerializeField] private LayerMask _itemLayer;
 
     [Header("MoveCounter")]
     [SerializeField]
@@ -102,7 +103,8 @@ public class PlayerGridMovement : MonoBehaviour
                     }
 
                     // Check if there drowning object
-                    if (Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _drownLayer) != null)
+                    if (Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _drownLayer) != null && 
+                        Physics2D.OverlapCircle(transform.position + new Vector3(_x * _moveDistance, 0, 0), .2f, _itemLayer) == null)
                     {
                         _movePoint.position = transform.position + new Vector3(_x * _moveDistance, 0, 0);
                     }
@@ -138,7 +140,8 @@ public class PlayerGridMovement : MonoBehaviour
                     }
 
                     // Check if there drowning object
-                    if (Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _drownLayer) != null)
+                    if (Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _drownLayer) != null &&
+                        Physics2D.OverlapCircle(transform.position + new Vector3(0, _y * _moveDistance, 0), .2f, _itemLayer) == null)
                     {
                         _movePoint.position = transform.position + new Vector3(0, _y * _moveDistance, 0);
                     }
