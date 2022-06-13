@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -34,12 +35,47 @@ public class PlayerGridMovement : MonoBehaviour
     private float _basicSpeed;
     private int _tongueSortingOrder = 11;
 
+    private bool isInShootingMode = false;
 
     void Start()
     {
         _basicSpeed = _moveSpeed;
         _movePoint.parent = null;
         _animator.speed = _moveSpeed / 5;
+    }
+
+    public void Move(CallbackContext context)
+    {
+        Vector2 inputVector = context.ReadValue<Vector2>();
+
+        int _x = Mathf.RoundToInt(inputVector.x);
+        int _y = Mathf.RoundToInt(inputVector.y);
+
+        // Handle shooting.
+        if (isInShootingMode)
+        {
+            _animator.SetBool("Jumping", false);
+
+        }
+        // Handle movement.
+        else 
+        {
+
+        }
+    }
+
+    public void ChangeShootingMode()
+    {
+        isInShootingMode = !isInShootingMode;
+    }
+
+    public void Shoot()
+    {
+        if (isInShootingMode)
+        {
+            // Placeholder
+            Debug.LogWarning("Shooting is not implemented yet!");
+        }
     }
 
     void Update()
@@ -70,7 +106,7 @@ public class PlayerGridMovement : MonoBehaviour
                 _time -= _moveSpeed * Time.deltaTime;
             }*/
 
-            if (Vector3.Distance(transform.position, _movePoint.position) == 0.0f)
+            if (Mathf.Round(Vector3.Distance(transform.position, _movePoint.position)) == 0)
             {
                 _animator.SetBool("Jumping", false);
 
