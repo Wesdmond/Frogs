@@ -6,9 +6,9 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerGridMovement : MonoBehaviour
 {
-    [Range(0f, 1f)]
-    [SerializeField] private float _moveSpeed = 5;
-    [SerializeField] private int _moveDistance = 500;
+    [Range(0.01f, 0.2f)]
+    [SerializeField] private float _moveSpeed = 0.2f;
+    [SerializeField] private int _moveDistance = 1;
     [SerializeField] private Transform _movePoint;
     [SerializeField] private LayerMask _whatStopsMovement;
     [SerializeField] private LayerMask _drownLayer;
@@ -38,6 +38,8 @@ public class PlayerGridMovement : MonoBehaviour
 
     private bool isMoving = false;
 
+    [Header("State")]
+    [SerializeField]
     private FrogStates currentState = FrogStates.Idle;
 
     void Start()
@@ -47,35 +49,59 @@ public class PlayerGridMovement : MonoBehaviour
         _animator.speed = _moveSpeed / 5;
     }
 
+    private Coroutine currentTryMoveCoroutine = null;
     public void Move(CallbackContext context)
     {
-        if (isMoving)
+        bool canMove = (currentState == FrogStates.Idle) || (currentState == FrogStates.Moving);
+        if (!canMove)
         {
             return;
         }
-
-        bool canMove = currentState == FrogStates.Idle || currentState == FrogStates.Moving;
-
-        if (canMove)
+        
+        if (context.performed)
         {
+            currentState = FrogStates.Moving;
             Vector2 inputVector = context.ReadValue<Vector2>();
-            
-            StartCoroutine(MoveCoroutine(inputVector));
+            int _x = Mathf.RoundToInt(inputVector.x);
+            int _y = Mathf.RoundToInt(inputVector.y);
 
+            if (currentTryMoveCoroutine != null)
+            {
+                StopCoroutine(currentTryMoveCoroutine);
+            }
+
+            
+            currentTryMoveCoroutine = StartCoroutine(TryMoveCoroutine(_x, _y));
+        }
+        else if (context.canceled)
+        {
+            if (currentTryMoveCoroutine != null)
+            {
+                StopCoroutine(currentTryMoveCoroutine);
+            }
+            currentState = FrogStates.Idle;
         }
     }
-    private IEnumerator MoveCoroutine(Vector2 inputVector)
+    private IEnumerator TryMoveCoroutine(int _x, int _y)
+    {
+        while (true)
+        {
+            if (!isMoving)
+            {
+                StartCoroutine(MoveCoroutine(_x, _y));
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator MoveCoroutine(int _x, int _y)
     {
         isMoving = true;
-
-        int _x = Mathf.RoundToInt(inputVector.x);
-        int _y = Mathf.RoundToInt(inputVector.y);
 
         if (_x != 0)
         {
             _movePoint.position = _movePoint.position + new Vector3(_moveDistance * _x, 0, 0);
             _tongueTransform.rotation = Quaternion.Euler(0, 0, 90 * _x);
-        }  
+        }
         else if (_y != 0)
         {
             _movePoint.position = _movePoint.position + new Vector3(0, _moveDistance * _y, 0);
@@ -83,27 +109,35 @@ public class PlayerGridMovement : MonoBehaviour
         }
 
         float _speed = _moveDistance * _moveSpeed;
-        for (int i = 0; i < 1/_moveSpeed; i++)
+        for (int i = 0; i < 1 / _moveSpeed; i++)
         {
             transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _speed);
             yield return null;
         }
 
+        yield return new WaitForSeconds(0.1f);
         isMoving = false;
+        
     }
 
-    public void ChangeShootingMode()
+    public void ChangeShootingMode(CallbackContext context)
     {
-        if (currentState == FrogStates.Idle)
+        //Debug.Log(context.phase);
+        if (!context.started)
         {
-            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
-            currentState = FrogStates.ShootingMode;
+            return;
         }
 
+        if (currentState == FrogStates.Idle)
+        {
+            currentState = FrogStates.ShootingMode;
+            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
+        }
+        else
         if (currentState == FrogStates.ShootingMode)
         {
-            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
             currentState = FrogStates.Idle;
+            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
         }
     }
 

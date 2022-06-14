@@ -3885,6 +3885,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1726fc224294a564c99197ee1d4d2a48, type: 3}
+--- !u!114 &883030785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+  m_PrefabInstance: {fileID: 3296537286445032738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &883030787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+  m_PrefabInstance: {fileID: 3296537286445032738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ddc4c256b38e244cb17d66ab3de2aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1235390879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4411,8 +4433,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: frogInput
+      value: 
+      objectReference: {fileID: 883030785}
+    - target: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: _moveSpeed
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605546, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_RootOrder
@@ -4459,6 +4485,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a5c7f177dab43614dbdf9947b573ad6c, type: 3}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_DefaultActionMap
       value: Frog
       objectReference: {fileID: 0}
@@ -4468,7 +4498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -4487,6 +4517,10 @@ PrefabInstance:
       value: 16baab72-65f6-402a-a5ec-2a2fbcefcf08
       objectReference: {fileID: 0}
     - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: 104a9fa9-6d7f-4b3b-add6-5b8860529e8c
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_ActionName
       value: Player/Fire[/Keyboard/space,/Touchscreen/primaryTouch/tap,/Shaul Eizikovich
         vJoy - Virtual Joystick/trigger]
@@ -4498,6 +4532,66 @@ PrefabInstance:
     - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: FrogShootingMode/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: FrogShootingMode/New action
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 883030787}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 883030787}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeShootingMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeShootingMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerGridMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerGridMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625112401873146697, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
