@@ -25,10 +25,7 @@ public class FrogMovement : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        if (_currentTryMoveCoroutine != null)
-        {
-            StopCoroutine(_currentTryMoveCoroutine);
-        }
+        Stop();
 
         int _x = Mathf.RoundToInt(direction.x);
         int _y = Mathf.RoundToInt(direction.y);
