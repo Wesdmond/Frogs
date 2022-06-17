@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3296537287298915382
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3296537287298915383}
-  m_Layer: 9
-  m_Name: MovePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3296537287298915383
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296537287298915382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3296537287542605546}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3296537287542605542
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +33,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6429431675405315192}
-  - {fileID: 3296537287298915383}
   - {fileID: 3296537287517202230}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -189,7 +157,7 @@ MonoBehaviour:
   _frogMovement: {fileID: 4789722265541688234}
   _animator: {fileID: 2144314081010556735}
   _tongueTransform: {fileID: 3296537287517202230}
-  _tongue: {fileID: 3296537286949192059}
+  _tongue: {fileID: 3057313601850584012}
   _tongueSpriteRenderer: {fileID: 3296537285503493438}
   _currentState: 0
 --- !u!114 &4789722265541688234
@@ -204,13 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468510d7d93054344a27924f8d10a668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 0.2
+  _moveSpeed: 0.05
   _moveDistance: 1
-  _pauseBetweenMovement: 0.075
+  _pauseBetweenMovement: 0.1
   _notCollideWith:
     serializedVersion: 2
     m_Bits: 512
-  _movePoint: {fileID: 3296537287298915383}
   _frogCollider: {fileID: 3296537287542605545}
 --- !u!61 &3296537287542605545
 BoxCollider2D:
@@ -356,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -405,21 +372,20 @@ PrefabInstance:
     - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: _frogTransform
       value: 
-      objectReference: {fileID: 3296537287298915383}
+      objectReference: {fileID: 0}
     - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: _maxTongueDistance
       value: 12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8621291979528217486, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: _frogTransform
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
---- !u!212 &3296537285503493438 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-  m_PrefabInstance: {fileID: 6757996373669447746}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3296537286949192059 stripped
+--- !u!114 &3057313601850584012 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8621291979528217486, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
   m_PrefabInstance: {fileID: 6757996373669447746}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -428,6 +394,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4923dfbe426d3479efaf23f43cb4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &3296537285503493438 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+  m_PrefabInstance: {fileID: 6757996373669447746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3296537287517202230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}

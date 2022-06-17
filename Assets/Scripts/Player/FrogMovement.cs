@@ -12,16 +12,10 @@ public class FrogMovement : MonoBehaviour
     [SerializeField] private LayerMask _notCollideWith;
 
     [Header("References")]
-    [SerializeField] private Transform _movePoint;
     [SerializeField] private Collider2D _frogCollider;
 
     private bool _isMoving = false;
     private Coroutine _currentTryMoveCoroutine = null;
-
-    void Start()
-    {
-        _movePoint.parent = null;
-    }
 
     public void Move(Vector2 direction)
     {
@@ -53,14 +47,14 @@ public class FrogMovement : MonoBehaviour
     private IEnumerator MoveCoroutine(int _x, int _y)
     {
         _isMoving = true;
-
+        Vector3 newPos = transform.position;
         Vector3 frogColliderSize = _frogCollider.bounds.size;
         if (_x != 0)
         {
             Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.right * _x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_notCollideWith);
             if (collision == null)
             {
-                _movePoint.position = _movePoint.position + new Vector3(_moveDistance * _x, 0, 0);
+                newPos = newPos + new Vector3(_moveDistance * _x, 0, 0);
             }
         }
         else if (_y != 0)
@@ -68,14 +62,14 @@ public class FrogMovement : MonoBehaviour
             Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.up * _y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_notCollideWith);
             if (collision == null)
             {
-                _movePoint.position = _movePoint.position + new Vector3(0, _moveDistance * _y, 0);
+                newPos = newPos + new Vector3(0, _moveDistance * _y, 0);
             }
         }
 
         float _speed = _moveDistance * _moveSpeed;
         for (int i = 0; i < 1 / _moveSpeed; i++)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _speed);
+            transform.position = Vector3.MoveTowards(transform.position, newPos, _speed);
             yield return null;
         }
 
