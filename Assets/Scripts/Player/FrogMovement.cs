@@ -9,10 +9,10 @@ public class FrogMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 0.2f;
     [SerializeField] private int _moveDistance = 1;
     [SerializeField] private float _pauseBetweenMovement = 0.075f;
+    [SerializeField] private LayerMask _notCollideWith;
 
     [Header("References")]
     [SerializeField] private Transform _movePoint;
-    [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private Collider2D _frogCollider;
 
     private bool _isMoving = false;
@@ -60,7 +60,7 @@ public class FrogMovement : MonoBehaviour
         Vector3 frogColliderSize = _frogCollider.bounds.size;
         if (_x != 0)
         {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.right * _x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, _playerLayer);
+            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.right * _x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_notCollideWith);
             if (collision == null)
             {
                 _movePoint.position = _movePoint.position + new Vector3(_moveDistance * _x, 0, 0);
@@ -68,7 +68,7 @@ public class FrogMovement : MonoBehaviour
         }
         else if (_y != 0)
         {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.up * _y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, _playerLayer);
+            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.up * _y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_notCollideWith);
             if (collision == null)
             {
                 _movePoint.position = _movePoint.position + new Vector3(0, _moveDistance * _y, 0);

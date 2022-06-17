@@ -40,9 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3296537287542605546}
-  - component: {fileID: 3296537287542605543}
-  - component: {fileID: 3296537287542605545}
   - component: {fileID: 3625112401873146697}
+  - component: {fileID: 3296537287542605543}
+  - component: {fileID: 4789722265541688234}
+  - component: {fileID: 3296537287542605545}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -68,57 +69,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3296537287542605543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296537287542605542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ddc4c256b38e244cb17d66ab3de2aad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 0.05
-  _moveDistance: 1
-  _movePoint: {fileID: 3296537287298915383}
-  frogInput: {fileID: 3625112401873146697}
-  frogCollider: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _animator: {fileID: 2144314081010556735}
-  _tongueTransform: {fileID: 3296537287517202230}
-  _tongue: {fileID: 3296537286949192059}
-  _tongueSpriteRenderer: {fileID: 3296537285503493438}
-  currentState: 0
---- !u!61 &3296537287542605545
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296537287542605542}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8333333, y: 0.8333333}
-    newSize: {x: 0.625, y: 0.6875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
-  m_EdgeRadius: 0
 --- !u!114 &3625112401873146697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +155,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3296537287542605543}
-        m_TargetAssemblyTypeName: PlayerGridMovement, Assembly-CSharp
+        m_TargetAssemblyTypeName: FrogController, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0
         m_Arguments:
@@ -223,6 +173,71 @@ MonoBehaviour:
   m_DefaultActionMap: Frog
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3296537287542605543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296537287542605542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ddc4c256b38e244cb17d66ab3de2aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frogInput: {fileID: 3625112401873146697}
+  _frogMovement: {fileID: 4789722265541688234}
+  _animator: {fileID: 2144314081010556735}
+  _tongueTransform: {fileID: 3296537287517202230}
+  _tongue: {fileID: 3296537286949192059}
+  _tongueSpriteRenderer: {fileID: 3296537285503493438}
+  _currentState: 0
+--- !u!114 &4789722265541688234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296537287542605542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468510d7d93054344a27924f8d10a668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 0.2
+  _moveDistance: 1
+  _pauseBetweenMovement: 0.075
+  _notCollideWith:
+    serializedVersion: 2
+    m_Bits: 512
+  _movePoint: {fileID: 3296537287298915383}
+  _frogCollider: {fileID: 3296537287542605545}
+--- !u!61 &3296537287542605545
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296537287542605542}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8333333, y: 0.8333333}
+    newSize: {x: 0.625, y: 0.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &8154212256033820482
 GameObject:
   m_ObjectHideFlags: 0

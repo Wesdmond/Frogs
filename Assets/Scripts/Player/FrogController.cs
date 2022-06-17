@@ -4,164 +4,91 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
-public class PlayerGridMovement : MonoBehaviour
+public class FrogController : MonoBehaviour
 {
-    [Range(0.01f, 0.2f)]
-    [SerializeField] private float _moveSpeed = 0.2f;
-    [SerializeField] private int _moveDistance = 1;
-    [SerializeField] private Transform _movePoint;
-    //[SerializeField] private LayerMask _whatStopsMovement;
-    //[SerializeField] private LayerMask _drownLayer;
-    //[SerializeField] private LayerMask _itemLayer;
-    [SerializeField]
-    private PlayerInput frogInput;
-    [SerializeField]
-    private Collider2D frogCollider;
-    [SerializeField]
-    private LayerMask playerLayer;
-
+    [SerializeField] private PlayerInput _frogInput;
+    [SerializeField] private FrogMovement _frogMovement;
     //[Header("MoveCounter")]
     //[SerializeField]
     //private MoveCounter _moveCounter;
     //[SerializeField]
     //private bool enableMoveCounter = false;
+
     [SerializeField]
     private Animator _animator;
 
     [Header("Tongue")]
-    [SerializeField]
-    private Transform _tongueTransform;
-    [SerializeField]
-    private Tongue _tongue;
-    [SerializeField]
-    private SpriteRenderer _tongueSpriteRenderer;
+    [SerializeField] private Transform _tongueTransform;
+    [SerializeField] private Tongue _tongue;
+    [SerializeField] private SpriteRenderer _tongueSpriteRenderer;
 
     private int _tongueSortingOrder = 11;
 
-    private bool isMoving = false;
-
     [Header("State")]
-    [SerializeField]
-    private FrogStates currentState = FrogStates.Idle;
+    [SerializeField] private FrogStates _currentState = FrogStates.Idle;
 
-    void Start()
-    {
-        _movePoint.parent = null;
-        _animator.speed = _moveSpeed / 5;
-    }
+    //void Start()
+    //{
+    //    _animator.speed = _moveSpeed / 5;
+    //}
 
-    private Coroutine currentTryMoveCoroutine = null;
     public void Move(CallbackContext context)
     {
-        bool canMove = (currentState == FrogStates.Idle) || (currentState == FrogStates.Moving);
+        bool canMove = (_currentState == FrogStates.Idle) || (_currentState == FrogStates.Moving);
         if (!canMove)
         {
             return;
         }
         
-        if (context.performed)
+        switch (context.phase)
         {
-            currentState = FrogStates.Moving;
-            Vector2 inputVector = context.ReadValue<Vector2>();
-            int _x = Mathf.RoundToInt(inputVector.x);
-            int _y = Mathf.RoundToInt(inputVector.y);
+            case InputActionPhase.Performed:
+                _currentState = FrogStates.Moving;
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                _frogMovement.Move(inputVector);
+                break;
 
-            if (currentTryMoveCoroutine != null)
-            {
-                StopCoroutine(currentTryMoveCoroutine);
-            }
-
-            currentTryMoveCoroutine = StartCoroutine(TryMoveCoroutine(_x, _y));
+            case InputActionPhase.Canceled:
+                _currentState = FrogStates.Idle;
+                _frogMovement.Stop();
+                break;
         }
-        else if (context.canceled)
-        {
-            if (currentTryMoveCoroutine != null)
-            {
-                StopCoroutine(currentTryMoveCoroutine);
-            }
-            currentState = FrogStates.Idle;
-        }
-    }
-    private IEnumerator TryMoveCoroutine(int _x, int _y)
-    {
-        while (true)
-        {
-            if (!isMoving)
-            {
-                StartCoroutine(MoveCoroutine(_x, _y));
-            }
-            yield return null;
-        }
-    }
-    private IEnumerator MoveCoroutine(int _x, int _y)
-    {
-        isMoving = true;
-
-        Vector3 frogColliderSize = frogCollider.bounds.size;
-        if (_x != 0)
-        {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.right * _x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, playerLayer);
-            if (collision == null)
-            {
-                _movePoint.position = _movePoint.position + new Vector3(_moveDistance * _x, 0, 0);
-                _tongueTransform.rotation = Quaternion.Euler(0, 0, 90 * _x);
-            }
-        }
-        else if (_y != 0)
-        {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.up * _y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, playerLayer);
-            if (collision == null)
-            {
-                _movePoint.position = _movePoint.position + new Vector3(0, _moveDistance * _y, 0);
-                _tongueTransform.rotation = Quaternion.Euler(0, 0, 90 + 90 * _y);
-            }
-        }
-
-        float _speed = _moveDistance * _moveSpeed;
-        for (int i = 0; i < 1 / _moveSpeed; i++)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _speed);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(0.075f);
-
-        isMoving = false;
     }
 
     public void ChangeShootingMode(CallbackContext context)
     {
-        //Debug.Log(context.phase);
+        // We are only interested in "started" phase.
         if (!context.started)
         {
             return;
         }
 
-        if (currentState == FrogStates.Idle)
+        if (_currentState == FrogStates.Idle)
         {
-            currentState = FrogStates.ShootingMode;
-            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
+            _currentState = FrogStates.ShootingMode;
+            _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
             _tongueTransform.gameObject.SetActive(true);
         }
         else
-        if (currentState == FrogStates.ShootingMode)
+        if (_currentState == FrogStates.ShootingMode)
         {
-            currentState = FrogStates.Idle;
-            frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
+            _currentState = FrogStates.Idle;
+            _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
             _tongueTransform.gameObject.SetActive(false);
         }
     }
 
     public void Shoot(CallbackContext context)
     {
+        // We are only interested in "started" phase.
         if (!context.started)
         {
             return;
         }
 
-        if (currentState == FrogStates.ShootingMode)
+        if (_currentState == FrogStates.ShootingMode)
         {
-            _tongue.StartShootTongue();
+            _tongue.Shoot();
         }
     }
 
