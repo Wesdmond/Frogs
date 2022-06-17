@@ -3,22 +3,31 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
-    [Header("Tongue")] [SerializeField] private Transform _tongueTransofrm;
+    [Header("Settings")]
+    [SerializeField] private LayerMask _whatStopsMovement;
+    [SerializeField] private float _speed = 6;
+    [SerializeField] private float _maxTongueDistance = 6f;
+
+    [Header("References")]
+    [SerializeField] private Transform _tongueTransofrm;
     [SerializeField] private SpriteRenderer _tongueSprite;
     [SerializeField] private BoxCollider2D _tongueCollider;
     [SerializeField] private Transform _frogTransform;
-    [SerializeField] private LayerMask _whatStopsMovement;
 
-    [Header("Settings")] [SerializeField] private float _speed = 6;
-    [SerializeField] private float _maxTongueDistance = 6f;
     private float _distance = 0;
-    private Transform objectTransform;
+    private Transform _objectTransform;
     private Coroutine _coroutineInstance;
 
     public bool IsRunning { get; private set; } = false;
     public float Speed => _speed;
 
-    public void StartShootTongue()
+    public void Rotate(Vector3 direction)
+    {
+        transform.LookAt(transform.position + direction, transform.position + Vector3.forward);
+        //transform.rotation = Quaternion.LookRotation(transform.position + direction, Vector3.back);
+    }
+
+    public void Shoot()
     {
         StopTongueCoroutine();
         _coroutineInstance = StartCoroutine(ShootTongue());
@@ -46,10 +55,10 @@ public class Tongue : MonoBehaviour
 
     private void Abort()
     {
-        if (objectTransform != null)
+        if (_objectTransform != null)
         {
-            FixGrid(objectTransform);
-            objectTransform = null;
+            FixGrid(_objectTransform);
+            _objectTransform = null;
         }
         StopTongueCoroutine();
     }
@@ -86,14 +95,14 @@ public class Tongue : MonoBehaviour
             ChangeScaleTongue(deltaDistance);
             yield return null;
         }
-
+        
         yield return RetractTongue(null);
     }
 
     private IEnumerator RetractTongue(Transform itemTransform)
     {
         bool isItemNull = itemTransform == null;
-        if (!isItemNull) objectTransform = itemTransform;
+        if (!isItemNull) _objectTransform = itemTransform;
 
         while (_distance > 0)
         {

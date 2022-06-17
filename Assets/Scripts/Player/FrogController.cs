@@ -18,7 +18,6 @@ public class FrogController : MonoBehaviour
     private Animator _animator;
 
     [Header("Tongue")]
-    [SerializeField] private Transform _tongueTransform;
     [SerializeField] private Tongue _tongue;
     [SerializeField] private SpriteRenderer _tongueSpriteRenderer;
 
@@ -26,11 +25,6 @@ public class FrogController : MonoBehaviour
 
     [Header("State")]
     [SerializeField] private FrogStates _currentState = FrogStates.Idle;
-
-    //void Start()
-    //{
-    //    _animator.speed = _moveSpeed / 5;
-    //}
 
     public void Move(CallbackContext context)
     {
@@ -45,7 +39,9 @@ public class FrogController : MonoBehaviour
             case InputActionPhase.Performed:
                 _currentState = FrogStates.Moving;
                 Vector2 inputVector = context.ReadValue<Vector2>();
+
                 _frogMovement.Move(inputVector);
+                _tongue.Rotate(inputVector);
                 break;
 
             case InputActionPhase.Canceled:
@@ -67,14 +63,14 @@ public class FrogController : MonoBehaviour
         {
             _currentState = FrogStates.ShootingMode;
             _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
-            _tongueTransform.gameObject.SetActive(true);
+            _tongue.gameObject.SetActive(true);
         }
         else
         if (_currentState == FrogStates.ShootingMode)
         {
             _currentState = FrogStates.Idle;
             _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
-            _tongueTransform.gameObject.SetActive(false);
+            _tongue.gameObject.SetActive(false);
         }
     }
 
