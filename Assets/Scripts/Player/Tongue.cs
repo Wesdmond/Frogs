@@ -23,8 +23,13 @@ public class Tongue : MonoBehaviour
 
     public void Rotate(Vector3 direction)
     {
-        transform.LookAt(transform.position + direction, transform.position + Vector3.forward);
-        //transform.rotation = Quaternion.LookRotation(transform.position + direction, Vector3.back);
+        // rotate by 90 or -90 if x != 0
+        float xDegrees = 90 * direction.x;
+        // rotate by 180 or 0 if y != 0
+        float yDegrees = 90 * Mathf.Abs(direction.y) + 90 * direction.y;
+
+        float rotationDegrees = xDegrees + yDegrees;
+        transform.rotation = Quaternion.Euler(0, 0, rotationDegrees); 
     }
 
     public void Shoot()

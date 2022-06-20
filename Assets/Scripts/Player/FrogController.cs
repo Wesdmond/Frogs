@@ -40,8 +40,9 @@ public class FrogController : MonoBehaviour
                 _currentState = FrogStates.Moving;
                 Vector2 inputVector = context.ReadValue<Vector2>();
 
-                _frogMovement.Move(inputVector);
-                _tongue.Rotate(inputVector);
+                Vector3 direction = InputToDir(inputVector);
+                _frogMovement.Move(direction);
+                _tongue.Rotate(direction);
                 break;
 
             case InputActionPhase.Canceled:
@@ -51,6 +52,18 @@ public class FrogController : MonoBehaviour
         }
     }
 
+    private Vector3 InputToDir(Vector2 input)
+    {
+        if(input.x != 0)
+        {
+            return new Vector3(input.x, 0, 0);
+        } 
+        if(input.y != 0)
+        {
+            return new Vector3(0, input.y, 0);
+        }
+        return Vector3.zero;
+    }
     public void ChangeShootingMode(CallbackContext context)
     {
         // We are only interested in "started" phase.
