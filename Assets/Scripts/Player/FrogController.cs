@@ -97,7 +97,7 @@ public class FrogController : MonoBehaviour
 
         if (_currentState == FrogStates.ShootingMode)
         {
-            _tongue.Shoot();
+            _tongue.Shoot(state => _currentState = state);
         }
     }
 
@@ -283,11 +283,11 @@ public class FrogController : MonoBehaviour
     //    }
     //}
 
-    enum FrogStates
+}
+    public enum FrogStates
     {
         Idle,
         Moving,
         ShootingMode,
         shooting
     }
-}

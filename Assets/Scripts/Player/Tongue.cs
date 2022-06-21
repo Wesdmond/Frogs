@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Tongue : MonoBehaviour
 {
@@ -14,12 +16,42 @@ public class Tongue : MonoBehaviour
     [SerializeField] private BoxCollider2D _tongueCollider;
     [SerializeField] private Transform _frogTransform;
 
+    [Header("Events")]
+    [SerializeField] UnityEvent OnStart;
+    [SerializeField] UnityEvent OnEnd;
+
     private float _distance = 0;
     private Transform _objectTransform;
     private Coroutine _coroutineInstance;
 
     public bool IsRunning { get; private set; } = false;
-    public float Speed => _speed;
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        ITongueInteractable itemInterface = collider.GetComponent<ITongueInteractable>();
+        if (itemInterface != null)
+        {
+            itemInterface.Interact(this);
+            return;
+        }
+        RetractTongue();
+
+        //switch (collider.tag)
+        //{
+        //    case "Door":
+        //        Abort();
+        //        StartRetractTongue(null);
+        //        break;
+        //    case "Item":
+        //        Abort();
+        //        StartRetractTongue(collider.gameObject.transform);
+        //        break;
+        //    case "Rock":
+        //        Abort();
+        //        StartPullFrog(collider.gameObject.transform);
+        //        break;
+        //}
+    }
 
     public void Rotate(Vector3 direction)
     {
@@ -32,30 +64,31 @@ public class Tongue : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotationDegrees); 
     }
 
-    public void Shoot()
+    public void Shoot(Action<FrogStates> ChangeState)
     {
         StopTongueCoroutine();
         _coroutineInstance = StartCoroutine(ShootTongue());
         IsRunning = true;
     }
-    
-    private void OnTriggerEnter2D(Collider2D collider)
+
+    public void PullFrogToTarget(Vector3 pos)
     {
-        switch (collider.tag)
-        {
-            case "Door":
-                Abort();
-                StartRetractTongue(null);
-                break;
-            case "Item":
-                Abort();
-                StartRetractTongue(collider.gameObject.transform);
-                break;
-            case "Rock":
-                Abort();
-                StartPullFrog(collider.gameObject.transform);
-                break;
-        }
+
+    }
+
+    public void PullTargetToFrog(Transform target)
+    {
+
+    }
+    
+    public void BreakTongue()
+    {
+
+    }
+
+    public void RetractTongue()
+    {
+
     }
 
     private void Abort()
@@ -97,7 +130,7 @@ public class Tongue : MonoBehaviour
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance += deltaDistance;
-            ChangeScaleTongue(deltaDistance);
+            ResizeTongue(deltaDistance);
             yield return null;
         }
         
@@ -113,7 +146,7 @@ public class Tongue : MonoBehaviour
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance -= deltaDistance;
-            ChangeScaleTongue(-deltaDistance);
+            ResizeTongue(-deltaDistance);
             if (!isItemNull)
             {
                 float distanceBetweenItemAndFrog = Vector2.Distance(
@@ -147,7 +180,7 @@ public class Tongue : MonoBehaviour
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance -= deltaDistance;
-            ChangeScaleTongue(-deltaDistance);
+            ResizeTongue(-deltaDistance);
             float distanceBetweenPullTargetAndFrog = Vector2.Distance(
                 targetTransform.position,
                 _frogTransform.position
@@ -168,7 +201,7 @@ public class Tongue : MonoBehaviour
         IsRunning = false;
     }
 
-    private void ChangeScaleTongue(float deltaDistance)
+    private void ResizeTongue(float deltaDistance)
     {
         Vector2 deltaScale = new Vector2(0, deltaDistance);
         transform.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
