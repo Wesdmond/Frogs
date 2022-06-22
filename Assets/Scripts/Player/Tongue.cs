@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Tongue : MonoBehaviour
+public class Tongue : FrogAction
 {
     [Header("Settings")]
     [SerializeField] private LayerMask _whatStopsMovement;
@@ -64,7 +64,7 @@ public class Tongue : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotationDegrees); 
     }
 
-    public void Shoot(Action<FrogStates> ChangeState)
+    public void Shoot()
     {
         StopTongueCoroutine();
         _coroutineInstance = StartCoroutine(ShootTongue());
@@ -204,7 +204,7 @@ public class Tongue : MonoBehaviour
     private void ResizeTongue(float deltaDistance)
     {
         Vector2 deltaScale = new Vector2(0, deltaDistance);
-        transform.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
+        //transform.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
         _tongueSprite.size += deltaScale;
         _tongueTransofrm.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
         _tongueCollider.size += deltaScale;

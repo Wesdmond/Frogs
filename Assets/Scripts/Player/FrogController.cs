@@ -26,44 +26,53 @@ public class FrogController : MonoBehaviour
     [Header("State")]
     [SerializeField] private FrogStates _currentState = FrogStates.Idle;
 
+    private void Awake()
+    {
+        _tongue.OnActionStart.AddListener(() => _currentState = FrogStates.Shooting);
+        _tongue.OnActionEnd.AddListener(() => _currentState = FrogStates.Idle);
+
+        _frogMovement.OnActionStart.AddListener(() => _currentState = FrogStates.Moving);
+        _frogMovement.OnActionEnd.AddListener(() => _currentState = FrogStates.Idle);
+    }
     public void Move(CallbackContext context)
     {
         bool canMove = (_currentState == FrogStates.Idle) || (_currentState == FrogStates.Moving);
-        if (!canMove)
+        if (canMove)
         {
-            return;
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
+                    {
+                        Vector2 inputVector = context.ReadValue<Vector2>();
+                        Vector3 direction = InputToDir(inputVector);
+
+                        _frogMovement.Move(direction);
+                        _tongue.Rotate(direction);
+                        break;
+                    }
+
+                case InputActionPhase.Canceled:
+                    {
+                        _frogMovement.StopMovement();
+                        break;
+                    }
+            }
         }
-        
-        switch (context.phase)
+        bool canRotateTongue = _currentState == FrogStates.ShootingMode;
+        if (canRotateTongue)
         {
-            case InputActionPhase.Performed:
-                _currentState = FrogStates.Moving;
+            if (context.phase == InputActionPhase.Performed)
+            {
                 Vector2 inputVector = context.ReadValue<Vector2>();
-
                 Vector3 direction = InputToDir(inputVector);
-                _frogMovement.Move(direction);
+
                 _tongue.Rotate(direction);
-                break;
-
-            case InputActionPhase.Canceled:
-                _currentState = FrogStates.Idle;
-                _frogMovement.Stop();
-                break;
+            }
         }
+
+
     }
 
-    private Vector3 InputToDir(Vector2 input)
-    {
-        if(input.x != 0)
-        {
-            return new Vector3(input.x, 0, 0);
-        } 
-        if(input.y != 0)
-        {
-            return new Vector3(0, input.y, 0);
-        }
-        return Vector3.zero;
-    }
     public void ChangeShootingMode(CallbackContext context)
     {
         // We are only interested in "started" phase.
@@ -78,8 +87,7 @@ public class FrogController : MonoBehaviour
             _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogShootingMap);
             _tongue.gameObject.SetActive(true);
         }
-        else
-        if (_currentState == FrogStates.ShootingMode)
+        else if (_currentState == FrogStates.ShootingMode)
         {
             _currentState = FrogStates.Idle;
             _frogInput.SwitchCurrentActionMap(FrogConstants.FrogMaps.FrogDefaultMap);
@@ -97,8 +105,20 @@ public class FrogController : MonoBehaviour
 
         if (_currentState == FrogStates.ShootingMode)
         {
-            _tongue.Shoot(state => _currentState = state);
+            _tongue.Shoot();
         }
+    }
+    private Vector3 InputToDir(Vector2 input)
+    {
+        if(input.x != 0)
+        {
+            return new Vector3(input.x, 0, 0);
+        } 
+        if(input.y != 0)
+        {
+            return new Vector3(0, input.y, 0);
+        }
+        return Vector3.zero;
     }
 
     //void Update()
@@ -283,11 +303,11 @@ public class FrogController : MonoBehaviour
     //    }
     //}
 
-}
-    public enum FrogStates
+    enum FrogStates
     {
         Idle,
         Moving,
         ShootingMode,
-        shooting
+        Shooting
     }
+}

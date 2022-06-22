@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrogMovement : MonoBehaviour
+public class FrogMovement : FrogAction
 {
     [Header("Settings")]
     [Range(0.01f, 0.2f)]
@@ -15,24 +15,29 @@ public class FrogMovement : MonoBehaviour
     [SerializeField] private Collider2D _frogCollider;
 
     private bool _isMoving = false;
-    private Coroutine _currentTryMoveCoroutine = null;
+    private Coroutine _tryMoveCoroutine = null;
 
     public void Move(Vector2 direction)
     {
-        Stop();
+        StopCurrentCoroutine();
+        OnActionStart.Invoke();
 
         int _x = Mathf.RoundToInt(direction.x);
         int _y = Mathf.RoundToInt(direction.y);
-        _currentTryMoveCoroutine = StartCoroutine(TryMoveCoroutine(_x, _y));
+        _tryMoveCoroutine = StartCoroutine(TryMoveCoroutine(_x, _y));
     }
-    public void Stop()
+    public void StopMovement()
     {
-        if (_currentTryMoveCoroutine != null)
+        StopCurrentCoroutine();
+    }
+    private void StopCurrentCoroutine()
+    {
+        if (_tryMoveCoroutine != null)
         {
-            StopCoroutine(_currentTryMoveCoroutine);
+            StopCoroutine(_tryMoveCoroutine);
+            _tryMoveCoroutine = null;
         }
     }
-
     private IEnumerator TryMoveCoroutine(int _x, int _y)
     {
         while (true)
@@ -44,6 +49,7 @@ public class FrogMovement : MonoBehaviour
             yield return null;
         }
     }
+
     private IEnumerator MoveCoroutine(int _x, int _y)
     {
         _isMoving = true;
@@ -74,7 +80,10 @@ public class FrogMovement : MonoBehaviour
         }
 
         yield return new WaitForSeconds(_pauseBetweenMovement);
-
+        if (_tryMoveCoroutine == null)
+        {
+            OnActionEnd.Invoke();
+        }
         _isMoving = false;
     }
 }
