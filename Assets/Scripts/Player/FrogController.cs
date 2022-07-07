@@ -7,33 +7,31 @@ using static UnityEngine.InputSystem.InputAction;
 public class FrogController : MonoBehaviour
 {
     [SerializeField] private PlayerInput _frogInput;
+
     [SerializeField] private FrogMovement _frogMovement;
+    [SerializeField] private Tongue _tongue;
+    [SerializeField] private Animator _animator;
+
+    [Header("State")]
+    [SerializeField] private FrogStates _currentState = FrogStates.Idle;
+
     //[Header("MoveCounter")]
     //[SerializeField]
     //private MoveCounter _moveCounter;
     //[SerializeField]
     //private bool enableMoveCounter = false;
-
-    [SerializeField]
-    private Animator _animator;
-
-    [Header("Tongue")]
-    [SerializeField] private Tongue _tongue;
-    [SerializeField] private SpriteRenderer _tongueSpriteRenderer;
-
+    
     private int _tongueSortingOrder = 11;
-
-    [Header("State")]
-    [SerializeField] private FrogStates _currentState = FrogStates.Idle;
 
     private void Awake()
     {
         _tongue.OnActionStart.AddListener(() => _currentState = FrogStates.Shooting);
-        _tongue.OnActionEnd.AddListener(() => _currentState = FrogStates.Idle);
+        _tongue.OnActionEnd.AddListener(() => _currentState = FrogStates.ShootingMode);
 
         _frogMovement.OnActionStart.AddListener(() => _currentState = FrogStates.Moving);
         _frogMovement.OnActionEnd.AddListener(() => _currentState = FrogStates.Idle);
     }
+
     public void Move(CallbackContext context)
     {
         bool canMove = (_currentState == FrogStates.Idle) || (_currentState == FrogStates.Moving);
@@ -43,6 +41,7 @@ public class FrogController : MonoBehaviour
             {
                 case InputActionPhase.Performed:
                     {
+                        RotateTongue(context);
                         Vector2 inputVector = context.ReadValue<Vector2>();
                         Vector3 direction = InputToDir(inputVector);
 
@@ -58,8 +57,12 @@ public class FrogController : MonoBehaviour
                     }
             }
         }
-        bool canRotateTongue = _currentState == FrogStates.ShootingMode;
-        if (canRotateTongue)
+
+        
+    }
+    public void RotateTongue(CallbackContext context)
+    {
+        if (_currentState == FrogStates.ShootingMode)
         {
             if (context.phase == InputActionPhase.Performed)
             {
@@ -69,8 +72,6 @@ public class FrogController : MonoBehaviour
                 _tongue.Rotate(direction);
             }
         }
-
-
     }
 
     public void ChangeShootingMode(CallbackContext context)
@@ -119,6 +120,14 @@ public class FrogController : MonoBehaviour
             return new Vector3(0, input.y, 0);
         }
         return Vector3.zero;
+    }
+
+    public enum FrogStates
+    {
+        Idle,
+        Moving,
+        ShootingMode,
+        Shooting
     }
 
     //void Update()
@@ -299,15 +308,7 @@ public class FrogController : MonoBehaviour
     //                _tongueTransform.rotation = Quaternion.Euler(0, 0, 0);
     //            }
     //        }
-            
+
     //    }
     //}
-
-    enum FrogStates
-    {
-        Idle,
-        Moving,
-        ShootingMode,
-        Shooting
-    }
 }
