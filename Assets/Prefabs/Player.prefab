@@ -183,12 +183,12 @@ MonoBehaviour:
   OnActionEnd:
     m_PersistentCalls:
       m_Calls: []
-  _moveSpeed: 0.05
+  _moveSpeed: 0.075
   _moveDistance: 1
-  _pauseBetweenMovement: 0.1
-  _notCollideWith:
+  _pauseBetweenMovement: 0.075
+  _moveThrough:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1025
   _frogCollider: {fileID: 3296537287542605545}
 --- !u!61 &3296537287542605545
 BoxCollider2D:
@@ -392,10 +392,6 @@ PrefabInstance:
       propertyPath: _frogTransform
       value: 
       objectReference: {fileID: 3296537287542605546}
-    - target: {fileID: 8621291979528217486, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-      propertyPath: _maxTongueDistance
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
 --- !u!114 &3057313601850584012 stripped

@@ -8,7 +8,7 @@ public class Tongue : FrogAction
     [Header("Settings")]
     [SerializeField] private float _speed = 6f;
     [SerializeField] private float _maxTongueDistance = 6f;
-    [SerializeField] private float _tongueWaitTime = 0.3f;
+    [SerializeField] private float _tongueWaitTime = 0.1f;
 
     [Header("References")]
     [SerializeField] private Transform _frogTransform;
@@ -20,6 +20,8 @@ public class Tongue : FrogAction
     private Transform _targetTransform;
 
     private Coroutine _coroutineInstance;
+
+    private int _tongueSortingOrder = 11;
 
     #region Unity methods
     private void OnTriggerEnter2D(Collider2D collider)
@@ -140,7 +142,8 @@ public class Tongue : FrogAction
             yield return null;
         }
 
-        FixGrid(_frogTransform);
+        FixGrid(target);
+        _targetTransform = null;
         OnActionEnd.Invoke();
     }
 
@@ -166,6 +169,7 @@ public class Tongue : FrogAction
         }
 
         FixGrid(_frogTransform);
+        _targetTransform = null;
         OnActionEnd.Invoke();
     }
     #endregion

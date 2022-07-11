@@ -20,8 +20,6 @@ public class FrogController : MonoBehaviour
     //private MoveCounter _moveCounter;
     //[SerializeField]
     //private bool enableMoveCounter = false;
-    
-    private int _tongueSortingOrder = 11;
 
     private void Awake()
     {

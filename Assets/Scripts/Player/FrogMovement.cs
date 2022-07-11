@@ -17,6 +17,8 @@ public class FrogMovement : FrogAction
     private bool _isMoving = false;
     private Coroutine _tryMoveCoroutine = null;
 
+
+
     #region Public methods
     public void Move(Vector2 direction)
     {

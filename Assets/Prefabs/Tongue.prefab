@@ -48,15 +48,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4923dfbe426d3479efaf23f43cb4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatStopsMovement:
-    serializedVersion: 2
-    m_Bits: 128
-  _speed: 15
-  _maxTongueDistance: 12.5
-  _tongueTransofrm: {fileID: 8103839225867726708}
+  OnActionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnActionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  _speed: 30
+  _maxTongueDistance: 15
+  _tongueWaitTime: 0.1
+  _frogTransform: {fileID: 0}
   _tongueSprite: {fileID: 1616538526123348167}
   _tongueCollider: {fileID: 8096738823657508157}
-  _frogTransform: {fileID: 0}
 --- !u!61 &8096738823657508157
 BoxCollider2D:
   m_ObjectHideFlags: 0
