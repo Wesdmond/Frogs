@@ -1,148 +1,166 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Tongue : MonoBehaviour
+public class Tongue : FrogAction
 {
-    [Header("Tongue")] [SerializeField] private Transform _tongueTransofrm;
+    [Header("Settings")]
+    [SerializeField] private float _speed = 6f;
+    [SerializeField] private float _maxTongueDistance = 6f;
+    [SerializeField] private float _tongueWaitTime = 0.1f;
+
+    [Header("References")]
+    [SerializeField] private Transform _frogTransform;
     [SerializeField] private SpriteRenderer _tongueSprite;
     [SerializeField] private BoxCollider2D _tongueCollider;
-    [SerializeField] private Transform _frogTransform;
-    [SerializeField] private LayerMask _whatStopsMovement;
 
-    [Header("Settings")] [SerializeField] private float _speed = 6;
-    [SerializeField] private float _maxTongueDistance = 6f;
-    private float _distance = 0;
-    private Transform objectTransform;
+    private float _distance = 0f;
+    private float _offset = 0.5f;
+    private Transform _targetTransform;
+
     private Coroutine _coroutineInstance;
 
-    public bool IsRunning { get; private set; } = false;
-    public float Speed => _speed;
+    private int _tongueSortingOrder = 11;
 
-    public void StartShootTongue()
-    {
-        StopTongueCoroutine();
-        _coroutineInstance = StartCoroutine(ShootTongue());
-        IsRunning = true;
-    }
-    
+    #region Unity methods
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        switch (collider.tag)
+        collider.TryGetComponent<ITongueInteractable>(out var itemInterface);
+        if (itemInterface == null)
         {
-            case "Door":
-                Abort();
-                StartRetractTongue(null);
-                break;
-            case "Item":
-                Abort();
-                StartRetractTongue(collider.gameObject.transform);
-                break;
-            case "Rock":
-                Abort();
-                StartPullFrog(collider.gameObject.transform);
-                break;
+            RetractTongue();
+            return;
         }
+        itemInterface.Interact(this);
+    }
+    #endregion
+
+    #region Public methods available to frog controller
+    public void Rotate(Vector3 direction)
+    {
+        transform.position = _frogTransform.position + direction * _tongueSprite.size.x / 2;
+        // rotate by 90 or -90 if x != 0
+        float xDegrees = 90 * direction.x;
+        // rotate by 180 or 0 if y != 0
+        float yDegrees = 90 * Mathf.Abs(direction.y) + 90 * direction.y;
+
+        float rotationDegrees = xDegrees + yDegrees;
+        transform.rotation = Quaternion.Euler(0, 0, rotationDegrees); 
     }
 
+    public void Shoot()
+    {
+        OnActionStart.Invoke();
+        _coroutineInstance = StartCoroutine(ShootCoroutine());
+    }
+    #endregion
+
+    #region public methods available to interactable objects
+    public void PullFrogToTarget(Transform targetTransform)
+    {
+        Abort();
+        _targetTransform = targetTransform;
+        _coroutineInstance = StartCoroutine(PullFrogToTargetCoroutine(targetTransform));
+    }
+
+    public void PullTargetToFrog(Transform targetTransform)
+    {
+        Abort();
+        _targetTransform = targetTransform;
+        _coroutineInstance = StartCoroutine(PullTargetToFrogCoroutine(targetTransform));
+    }
+
+    public void RetractTongue()
+    {
+        Abort();
+        _coroutineInstance = StartCoroutine(RetractTongueCoroutine());
+    }
+
+    public void BreakTongue()
+    {
+        Abort();
+        OnActionEnd.Invoke();
+    }
+    #endregion
+
+    #region Private methods
     private void Abort()
     {
-        if (objectTransform != null)
+        if (_targetTransform != null)
         {
-            FixGrid(objectTransform);
-            objectTransform = null;
+            FixGrid(_targetTransform);
+            _targetTransform = null;
         }
         StopTongueCoroutine();
     }
 
-    private void StartRetractTongue(Transform itemTransform)
+    private IEnumerator ShootCoroutine()
     {
-        StopTongueCoroutine();
-        _coroutineInstance = StartCoroutine(RetractTongue(itemTransform));
-        IsRunning = true;
-    }
-
-    private void StartPullFrog(Transform targetTransform)
-    {
-        StopTongueCoroutine();
-        _coroutineInstance = StartCoroutine(PullFrog(targetTransform));
-        IsRunning = true;
-    }
-
-    private void StopTongueCoroutine()
-    {
-        if (_coroutineInstance == null) return;
-
-        StopCoroutine(_coroutineInstance);
-        _coroutineInstance = null;
-        IsRunning = false;
-    }
-
-    private IEnumerator ShootTongue()
-    {
-        while (_distance < _maxTongueDistance)
+        while (_distance + _offset < _maxTongueDistance)
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance += deltaDistance;
-            ChangeScaleTongue(deltaDistance);
+            ResizeTongue(deltaDistance);
             yield return null;
         }
 
-        yield return RetractTongue(null);
+        yield return new WaitForSeconds(_tongueWaitTime);
+        RetractTongue();
     }
-
-    private IEnumerator RetractTongue(Transform itemTransform)
+    private IEnumerator RetractTongueCoroutine()
     {
-        bool isItemNull = itemTransform == null;
-        if (!isItemNull) objectTransform = itemTransform;
-
         while (_distance > 0)
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance -= deltaDistance;
-            ChangeScaleTongue(-deltaDistance);
-            if (!isItemNull)
+            ResizeTongue(-deltaDistance);
+            yield return null;
+        }
+
+        OnActionEnd.Invoke();
+    }
+
+    private IEnumerator PullTargetToFrogCoroutine(Transform target)
+    {
+        while (_distance > 0)
+        {
+            float deltaDistance = _speed * Time.deltaTime;
+            _distance -= deltaDistance;
+            ResizeTongue(-deltaDistance);
+            float distanceBetweenPullTargetAndFrog = Vector3.Distance(target.position, _frogTransform.position);
+
+            if (distanceBetweenPullTargetAndFrog > 1)
             {
-                float distanceBetweenItemAndFrog = Vector2.Distance(
-                    itemTransform.position,
-                    _frogTransform.position
+                target.position = Vector3.MoveTowards(
+                    target.position,
+                    _frogTransform.position,
+                    deltaDistance
                 );
-                if (distanceBetweenItemAndFrog > 1)
-                {
-                    itemTransform.position = Vector3.MoveTowards(
-                        itemTransform.position,
-                        _frogTransform.position,
-                        deltaDistance
-                    );
-                }
             }
 
             yield return null;
         }
-        if (!isItemNull)
-        {
-            FixGrid(itemTransform);
-            if (itemTransform.tag == "Item")
-                itemTransform.GetComponent<Box>().Drown();
-        }
-        IsRunning = false;
+
+        FixGrid(target);
+        _targetTransform = null;
+        OnActionEnd.Invoke();
     }
 
-    private IEnumerator PullFrog(Transform targetTransform)
+    private IEnumerator PullFrogToTargetCoroutine(Transform target)
     {
         while (_distance > 0)
         {
             float deltaDistance = _speed * Time.deltaTime;
             _distance -= deltaDistance;
-            ChangeScaleTongue(-deltaDistance);
-            float distanceBetweenPullTargetAndFrog = Vector2.Distance(
-                targetTransform.position,
-                _frogTransform.position
-            );
+            ResizeTongue(-deltaDistance);
+            float distanceBetweenPullTargetAndFrog = Vector3.Distance(target.position, _frogTransform.position);
+
             if (distanceBetweenPullTargetAndFrog > 1)
             {
                 _frogTransform.position = Vector3.MoveTowards(
                     _frogTransform.position,
-                    targetTransform.position,
+                    target.position,
                     deltaDistance
                 );
             }
@@ -151,16 +169,32 @@ public class Tongue : MonoBehaviour
         }
 
         FixGrid(_frogTransform);
-        IsRunning = false;
+        _targetTransform = null;
+        OnActionEnd.Invoke();
+    }
+    #endregion
+
+    #region Helper methods
+    private void StopTongueCoroutine()
+    {
+        if (_coroutineInstance == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_coroutineInstance);
+        _coroutineInstance = null;
     }
 
-    private void ChangeScaleTongue(float deltaDistance)
+    private void ResizeTongue(float deltaDistance)
     {
-        Vector2 deltaScale = new Vector2(0, deltaDistance);
-        transform.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
-        _tongueSprite.size += deltaScale;
-        _tongueTransofrm.localPosition += new Vector3(0, (-deltaScale / 2).y, 0);
-        _tongueCollider.size += deltaScale;
+        Vector2 newSpriteSize = new Vector2(_tongueSprite.size.x, _tongueSprite.size.y + deltaDistance);
+        _tongueSprite.size = newSpriteSize;
+        
+        Vector2 newColliderSize = new Vector2(_tongueCollider.size.x, _tongueCollider.size.y + deltaDistance);
+        _tongueCollider.size = newColliderSize;
+
+        transform.localPosition += -transform.up * deltaDistance / 2;
     }
 
     private static void FixGrid(Transform transformToFix)
@@ -173,4 +207,6 @@ public class Tongue : MonoBehaviour
         );
         transformToFix.position = position;
     }
+
+    #endregion
 }

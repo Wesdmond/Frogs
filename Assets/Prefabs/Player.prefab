@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3296537287298915382
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3296537287298915383}
-  m_Layer: 9
-  m_Name: MovePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3296537287298915383
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296537287298915382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3296537287542605546}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3296537287542605542
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3296537287542605546}
-  - component: {fileID: 3296537287542605540}
+  - component: {fileID: 3625112401873146697}
   - component: {fileID: 3296537287542605543}
+  - component: {fileID: 4789722265541688234}
   - component: {fileID: 3296537287542605545}
   m_Layer: 9
   m_Name: Player
@@ -63,12 +33,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6429431675405315192}
-  - {fileID: 3296537287298915383}
   - {fileID: 3296537287517202230}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3296537287542605540
+--- !u!114 &3625112401873146697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,9 +46,108 @@ MonoBehaviour:
   m_GameObject: {fileID: 3296537287542605542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dce193a2ddc67f42995887157444e91, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: a5c7f177dab43614dbdf9947b573ad6c, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: PlayerGridMovement, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2a889fa4-5e42-40dd-88b3-aaaf3bf239c9
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/Shaul
+      Eizikovich vJoy - Virtual Joystick/stick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: PlayerGridMovement, Assembly-CSharp
+        m_MethodName: ChangeShootingMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23a072c4-889a-46e6-8888-67e524d38b3e
+    m_ActionName: Player/Change firing mode[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: FrogController, Assembly-CSharp
+        m_MethodName: RotateTongue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 16baab72-65f6-402a-a5ec-2a2fbcefcf08
+    m_ActionName: FrogShootingMode/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: PlayerGridMovement, Assembly-CSharp
+        m_MethodName: ChangeShootingMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 104a9fa9-6d7f-4b3b-add6-5b8860529e8c
+    m_ActionName: FrogShootingMode/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: FrogController, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ad39b93e-97b1-4b6d-afc7-04f6fb6dd48a
+    m_ActionName: FrogShootingMode/Shoot[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Frog
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &3296537287542605543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,25 +160,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddc4c256b38e244cb17d66ab3de2aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _moveDistance: 1
-  _movePoint: {fileID: 3296537287298915383}
-  _playerInput: {fileID: 3296537287542605540}
-  _whatStopsMovement:
-    serializedVersion: 2
-    m_Bits: 192
-  _drownLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  _itemLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _moveCounter: {fileID: 0}
-  enableMoveCounter: 0
+  _frogInput: {fileID: 3625112401873146697}
+  _frogMovement: {fileID: 4789722265541688234}
+  _tongue: {fileID: 3057313601850584012}
   _animator: {fileID: 2144314081010556735}
-  _tongueTransform: {fileID: 3296537287517202230}
-  _tongue: {fileID: 3296537286949192059}
-  _tongueSpriteRenderer: {fileID: 3296537285503493438}
+  _currentState: 0
+--- !u!114 &4789722265541688234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296537287542605542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468510d7d93054344a27924f8d10a668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnActionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnActionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  _moveSpeed: 0.075
+  _moveDistance: 1
+  _pauseBetweenMovement: 0.075
+  _moveThrough:
+    serializedVersion: 2
+    m_Bits: 1025
+  _frogCollider: {fileID: 3296537287542605545}
 --- !u!61 &3296537287542605545
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -255,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103839225867726708, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -304,21 +383,20 @@ PrefabInstance:
     - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: _frogTransform
       value: 
-      objectReference: {fileID: 3296537287298915383}
+      objectReference: {fileID: 0}
     - target: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: _maxTongueDistance
       value: 12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8621291979528217486, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: _frogTransform
+      value: 
+      objectReference: {fileID: 3296537287542605546}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
---- !u!212 &3296537285503493438 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8103839227880811900, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
-  m_PrefabInstance: {fileID: 6757996373669447746}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3296537286949192059 stripped
+--- !u!114 &3057313601850584012 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8103839226369263929, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8621291979528217486, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
   m_PrefabInstance: {fileID: 6757996373669447746}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

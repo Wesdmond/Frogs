@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 330946351596804488}
   - component: {fileID: 4439857224498304994}
   - component: {fileID: 3683699700274193182}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: DoorVertical
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3101136094575724926}
   - component: {fileID: 799867909222157930}
   - component: {fileID: 1689537537675599418}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
