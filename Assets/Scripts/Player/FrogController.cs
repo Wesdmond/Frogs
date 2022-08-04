@@ -107,6 +107,12 @@ public class FrogController : MonoBehaviour
             _tongue.Shoot();
         }
     }
+
+    public void Restart()
+    {
+        GameManager.Instance.Resrart();
+    }
+
     private Vector3 InputToDir(Vector2 input)
     {
         if(input.x != 0)

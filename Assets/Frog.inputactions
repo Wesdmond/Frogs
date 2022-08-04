@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "Press(pressPoint=1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "d44be9b2-95dd-4e23-b2fb-0121fca99259",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -167,6 +176,17 @@
                     "action": "Change shooting mode",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c2a8ad4-f7aa-4a2e-a359-a261debf8823",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -196,6 +216,15 @@
                     "name": "Shoot",
                     "type": "Button",
                     "id": "ad39b93e-97b1-4b6d-afc7-04f6fb6dd48a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "9d17b45a-f461-4dbf-95bf-1e763dc99299",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -332,6 +361,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a12f9ba9-fcd3-4bca-894a-6f6017434baf",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

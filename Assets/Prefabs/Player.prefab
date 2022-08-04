@@ -143,6 +143,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ad39b93e-97b1-4b6d-afc7-04f6fb6dd48a
     m_ActionName: FrogShootingMode/Shoot[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: FrogController, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d44be9b2-95dd-4e23-b2fb-0121fca99259
+    m_ActionName: Frog/Reset[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296537287542605543}
+        m_TargetAssemblyTypeName: FrogController, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9d17b45a-f461-4dbf-95bf-1e763dc99299
+    m_ActionName: FrogShootingMode/Reset[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Frog
