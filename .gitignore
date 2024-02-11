@@ -80,3 +80,4 @@ crashlytics-build.properties
 # My GitIgnore
 # User Settings
 /[Uu]serSettings/*
+Assembly-CSharp.csproj.DotSettings
