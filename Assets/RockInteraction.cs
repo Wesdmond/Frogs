@@ -8,4 +8,9 @@ public class RockInteraction : MonoBehaviour, ITongueInteractable
     {
         context.PullFrogToTarget(transform);
     }
+
+    public void AfterInteract()
+    {
+        
+    }
 }
