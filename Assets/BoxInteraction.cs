@@ -30,6 +30,7 @@ public class BoxInteraction : MonoBehaviour, ITongueInteractable
             _spriteRenderer.sortingOrder = 9;
             gameObject.layer = (int)Mathf.Log(_drownLayer.value, 2);
             gameObject.tag = "Drown";
+            Destroy(this);
         }
     }
 }

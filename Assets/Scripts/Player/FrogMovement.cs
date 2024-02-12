@@ -25,9 +25,9 @@ public class FrogMovement : FrogAction
         StopCurrentCoroutine();
         OnActionStart.Invoke();
 
-        int _x = Mathf.RoundToInt(direction.x);
-        int _y = Mathf.RoundToInt(direction.y);
-        _tryMoveCoroutine = StartCoroutine(TryMoveCoroutine(_x, _y));
+        int x = Mathf.RoundToInt(direction.x);
+        int y = Mathf.RoundToInt(direction.y);
+        _tryMoveCoroutine = StartCoroutine(TryMoveCoroutine(x, y));
     }
     public void StopMovement()
     {
@@ -44,44 +44,48 @@ public class FrogMovement : FrogAction
             _tryMoveCoroutine = null;
         }
     }
-    private IEnumerator TryMoveCoroutine(int _x, int _y)
+    private IEnumerator TryMoveCoroutine(int x, int y)
     {
         while (true)
         {
             if (!_isMoving)
             {
-                StartCoroutine(MoveCoroutine(_x, _y));
+                StartCoroutine(MoveCoroutine(x, y));
             }
             yield return null;
         }
     }
 
-    private IEnumerator MoveCoroutine(int _x, int _y)
+    private IEnumerator MoveCoroutine(int x, int y)
     {
         _isMoving = true;
         Vector3 newPos = transform.position;
         Vector3 frogColliderSize = _frogCollider.bounds.size;
-        if (_x != 0)
+        Collider2D collisionWithNotMovableThrough;
+        Collider2D collisionWithMovableThrough;
+        if (x != 0)
         {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.right * _x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_moveThrough);
-            if (collision == null)
+            collisionWithNotMovableThrough = Physics2D.OverlapBox(transform.position + Vector3.right * x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_moveThrough);
+            collisionWithMovableThrough = Physics2D.OverlapBox(transform.position + Vector3.right * x * frogColliderSize.x, frogColliderSize * 0.95f, 0f, _moveThrough);
+            if (!collisionWithNotMovableThrough || collisionWithMovableThrough)
             {
-                newPos = newPos + new Vector3(_moveDistance * _x, 0, 0);
+                newPos = newPos + new Vector3(_moveDistance * x, 0, 0);
             }
         }
-        else if (_y != 0)
+        else if (y != 0)
         {
-            Collider2D collision = Physics2D.OverlapBox(transform.position + Vector3.up * _y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_moveThrough);
-            if (collision == null)
+            collisionWithNotMovableThrough = Physics2D.OverlapBox(transform.position + Vector3.up * y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, ~_moveThrough);
+            collisionWithMovableThrough = Physics2D.OverlapBox(transform.position + Vector3.up * y * frogColliderSize.x, frogColliderSize * 0.95f, 0f, _moveThrough);
+            if (!collisionWithNotMovableThrough || collisionWithMovableThrough)
             {
-                newPos = newPos + new Vector3(0, _moveDistance * _y, 0);
+                newPos = newPos + new Vector3(0, _moveDistance * y, 0);
             }
         }
 
-        float _speed = _moveDistance * _moveSpeed;
+        float speed = _moveDistance * _moveSpeed;
         for (int i = 0; i < 1 / _moveSpeed; i++)
         {
-            transform.position = Vector3.MoveTowards(transform.position, newPos, _speed);
+            transform.position = Vector3.MoveTowards(transform.position, newPos, speed);
             yield return null;
         }
 
