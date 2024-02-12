@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1711577479765764654}
   - component: {fileID: 2869904088874006066}
   - component: {fileID: 854620236936436765}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Box
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 1711577479765764652}
   _drownLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 128
   _whatStopsMovement:
     serializedVersion: 2
     m_Bits: 64
