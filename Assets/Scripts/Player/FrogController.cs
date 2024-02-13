@@ -32,11 +32,6 @@ public class FrogController : MonoBehaviour
         _frogMovement.OnActionEnd.AddListener(_animatorController.StopJumping);
     }
 
-    private void Update()
-    {
-        _animatorController.SetAnimatorSpeed(1 / _frogMovement.GetSpeed() / paramSpeed);
-    }
-
     public void Move(CallbackContext context)
     {
         bool canMove = (_currentState == FrogStates.Idle) || (_currentState == FrogStates.Moving);

@@ -5462,7 +5462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605543, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: paramSpeed
-      value: 5.33
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3296537287542605546, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5510,7 +5510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4789722265541688234, guid: e87da9c817174d142b23aeffa3d60ac0, type: 3}
       propertyPath: _pauseBetweenMovement
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
