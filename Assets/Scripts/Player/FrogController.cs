@@ -20,7 +20,7 @@ public class FrogController : MonoBehaviour
     
     private void Awake()
     {
-        _animatorController.SetAnimatorSpeed(paramSpeed);
+        _animatorController.SetAnimatorSpeed(1);
         
         _tongue.OnActionStart.AddListener(() => _currentState = FrogStates.Shooting);
         _tongue.OnActionEnd.AddListener(() => _currentState = FrogStates.ShootingMode);
