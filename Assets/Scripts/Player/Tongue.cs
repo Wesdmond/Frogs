@@ -20,10 +20,15 @@ public class Tongue : FrogAction
     private Transform _targetTransform;
 
     private Coroutine _coroutineInstance;
-
-    private int _tongueSortingOrder = 11;
-
+    
     #region Unity methods
+
+    private void Awake()
+    {
+        OnActionStart.AddListener(() => _tongueSprite.enabled = true);
+        OnActionEnd.AddListener(() => _tongueSprite.enabled = false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         collider.TryGetComponent<ITongueInteractable>(out var itemInterface);
@@ -39,7 +44,12 @@ public class Tongue : FrogAction
     #region Public methods available to frog controller
     public void Rotate(Vector3 direction)
     {
+        int tongueOrderInLayers = direction.y < 0
+            ? FrogConstants.FrogTongueLayers.TongueDefaultOrderInLayers
+            : FrogConstants.FrogTongueLayers.TongueNotLookingDownOrderInLayers;
+        _tongueSprite.sortingOrder = tongueOrderInLayers;
         transform.position = _frogTransform.position + direction * _tongueSprite.size.x / 2;
+        
         // rotate by 90 or -90 if x != 0
         float xDegrees = 90 * direction.x;
         // rotate by 180 or 0 if y != 0

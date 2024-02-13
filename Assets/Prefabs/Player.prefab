@@ -195,8 +195,9 @@ MonoBehaviour:
   _frogInput: {fileID: 3625112401873146697}
   _frogMovement: {fileID: 4789722265541688234}
   _tongue: {fileID: 3057313601850584012}
-  _animator: {fileID: 2144314081010556735}
+  _animatorController: {fileID: 1735972660659936089}
   _currentState: 0
+  paramSpeed: 5
 --- !u!114 &4789722265541688234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ MonoBehaviour:
   OnActionEnd:
     m_PersistentCalls:
       m_Calls: []
-  _moveSpeed: 0.075
+  _moveSpeed: 0.06
   _moveDistance: 1
   _pauseBetweenMovement: 0.075
   _moveThrough:
@@ -278,6 +279,7 @@ GameObject:
   - component: {fileID: 6429431675405315192}
   - component: {fileID: 4451382128716737502}
   - component: {fileID: 2144314081010556735}
+  - component: {fileID: 1735972660659936089}
   m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
@@ -373,6 +375,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1735972660659936089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8154212256033820482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2312497d51323a40aa6c15f32f9e4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2144314081010556735}
 --- !u!1001 &6757996373669447746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,6 +396,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3296537287542605546}
     m_Modifications:
+    - target: {fileID: 1616538526123348167, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8096738823657508157, guid: 26c3894510a7a474687e464d9e12010c, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 128

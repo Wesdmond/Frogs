@@ -1,13 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class FrogMovement : FrogAction
 {
     [Header("Settings")]
-    [Range(0.01f, 0.2f)]
+    [Range(0.01f, 10f)]
     [SerializeField] private float _moveSpeed = 0.2f;
     [SerializeField] private int _moveDistance = 1;
     [SerializeField] private float _pauseBetweenMovement = 0.075f;
@@ -22,15 +19,18 @@ public class FrogMovement : FrogAction
 
 
     #region Public methods
+
+    public float GetSpeed()
+    {
+        return _moveSpeed;
+    }
+    
     public void Move(Vector2 direction)
     {
         StopCurrentCoroutine();
-        OnActionStart.Invoke();
-        // direction = Vector2Int.RoundToInt(direction);
-        // int x = Mathf.RoundToInt(direction.x);
-        // int y = Mathf.RoundToInt(direction.y);
         _tryMoveCoroutine = StartCoroutine(TryMoveCoroutine(Vector2Int.RoundToInt(direction)));
     }
+    
     public void StopMovement()
     {
         StopCurrentCoroutine();
@@ -74,6 +74,7 @@ public class FrogMovement : FrogAction
                 newPos = newPos + new Vector3(0, _moveDistance * direction.y, 0);
         }
 
+        OnActionStart.Invoke();
         float speed = _moveDistance * _moveSpeed;
         for (int i = 0; i < 1 / _moveSpeed; i++)
         {
@@ -81,11 +82,12 @@ public class FrogMovement : FrogAction
             yield return null;
         }
 
+        OnActionEnd.Invoke();
         yield return new WaitForSeconds(_pauseBetweenMovement);
-        if (_tryMoveCoroutine == null)
-        {
-            OnActionEnd.Invoke();
-        }
+        // if (_tryMoveCoroutine == null)
+        // {
+        //     OnActionEnd.Invoke();
+        // }
         _isMoving = false;
     }
     #endregion
